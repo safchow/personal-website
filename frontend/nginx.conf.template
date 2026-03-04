@@ -1,6 +1,14 @@
+# Redirect root domain to www
 server {
     listen ${PORT};
-    server_name _;
+    server_name safwaan-chowdhury.com;
+    return 301 https://www.safwaan-chowdhury.com$request_uri;
+}
+
+# Serve the app on www (and Railway URL)
+server {
+    listen ${PORT} default_server;
+    server_name www.safwaan-chowdhury.com _;
     root /usr/share/nginx/html;
     index index.html;
     location / {
