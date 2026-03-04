@@ -34,28 +34,20 @@ RUN pnpm --filter @website/frontend build
 # Production stage - serve static files with nginx
 FROM nginx:alpine AS production
 
+# Railway injects PORT - nginx must listen on it
+ENV PORT=8080
+
 # Copy built static assets
 COPY --from=base /app/frontend/dist /usr/share/nginx/html
 
-# Copy nginx configuration (optional - for SPA routing)
-RUN echo 'server { \
-    listen 80; \
-    server_name _; \
-    root /usr/share/nginx/html; \
-    index index.html; \
-    location / { \
-        try_files $uri $uri/ /index.html; \
-    } \
-}' > /etc/nginx/conf.d/default.conf
+# Copy nginx config template (PORT is substituted at runtime)
+COPY frontend/nginx.conf.template /etc/nginx/templates/default.conf.template
 
-# Expose port
-EXPOSE 80
-
-# Health check
+# Health check (use shell so $PORT expands at runtime)
 HEALTHCHECK --interval=30s --timeout=3s --start-period=5s --retries=3 \
-  CMD wget --quiet --tries=1 --spider http://localhost/ || exit 1
+  CMD ["/bin/sh", "-c", "wget --quiet --tries=1 --spider http://localhost:${PORT:-8080}/ || exit 1"]
 
-# Start nginx
+# nginx:alpine runs envsubst on templates in /docker-entrypoint.d/
 CMD ["nginx", "-g", "daemon off;"]
 
 
