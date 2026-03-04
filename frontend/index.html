@@ -6,6 +6,21 @@
     <title>Safwaan</title>
   </head>
   <body>
+    <script>
+      (function() {
+        const stored = localStorage.getItem('theme');
+        const dark = stored === 'dark' || ((!stored || stored === 'system') && window.matchMedia('(prefers-color-scheme: dark)').matches);
+        if (dark) {
+          document.documentElement.classList.add('dark');
+          var bg = 'hsl(223, 12%, 11%)';
+          var fg = 'hsl(0, 0%, 100%)';
+          document.documentElement.style.backgroundColor = bg;
+          document.documentElement.style.color = fg;
+          document.body.style.backgroundColor = bg;
+          document.body.style.color = fg;
+        }
+      })();
+    </script>
     <div id="root"></div>
     <script type="module" src="/src/main.tsx"></script>
   </body>
