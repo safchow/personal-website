@@ -11,15 +11,15 @@ ENV VITE_API_URL=$VITE_API_URL
 
 WORKDIR /app
 
-# Copy root package files
-COPY package.json pnpm-lock.yaml pnpm-workspace.yaml ./
+# Copy root package files (exclude lockfile - fresh install avoids gems/lockfile mismatch)
+COPY package.json pnpm-workspace.yaml ./
 
 # Copy package.json files for all workspaces
 COPY stones/package.json ./stones/
 COPY frontend/package.json ./frontend/
 
-# Install dependencies (--no-frozen-lockfile allows lockfile to sync if workspace changed)
-RUN pnpm install --no-frozen-lockfile
+# Install dependencies (no lockfile = fresh install, avoids CI lockfile sync issues)
+RUN pnpm install
 
 # Copy source code
 COPY stones ./stones
