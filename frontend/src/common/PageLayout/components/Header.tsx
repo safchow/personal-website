@@ -1,5 +1,5 @@
 import { Button } from '@stones';
-import { StoneIcon, SunMoonIcon } from 'lucide-react';
+import { MoonIcon, StoneIcon, SunIcon } from 'lucide-react';
 import * as React from 'react';
 
 import { Typography } from '@/common/Typography';
@@ -13,18 +13,18 @@ export const Header: React.FC = () => {
   return (
     <div className="w-full h-fit flex flex-row justify-between">
       <div className="flex flex-row items-center gap-4">
-        <StoneIcon />
-        <Typography className="text-lg font-medium">
+        <StoneIcon className="size-6" />
+        <Typography className="text-lg font-normal">
           Safwaan Chowdhury
         </Typography>
       </div>
 
       <div className="flex flex-row gap-6">
-        <Button variant="link">
-          <Typography className="text-base font-medium">About</Typography>
+        <Button variant="ghost">
+          <Typography className="text-base font-light">About</Typography>
         </Button>
-        <Button variant="link">
-          <Typography className="text-base font-medium">Resume</Typography>
+        <Button variant="ghost">
+          <Typography className="text-base font-light">Resume</Typography>
         </Button>
         <Button
           variant="ghost"
@@ -32,7 +32,10 @@ export const Header: React.FC = () => {
           onClick={toggleTheme}
           aria-label="Toggle dark mode"
         >
-          <SunMoonIcon />
+          <span className="relative inline-block size-5">
+            <SunIcon className="absolute inset-0 size-5 opacity-0 transition-opacity duration-[250ms] ease-in-out dark:opacity-100" />
+            <MoonIcon className="absolute inset-0 size-5 opacity-100 transition-opacity duration-[250ms] ease-in-out dark:opacity-0" />
+          </span>
         </Button>
       </div>
     </div>

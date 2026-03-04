@@ -7,19 +7,19 @@ export const Footer: React.FC = () => {
   return (
     <div className="w-full h-fit flex flex-row justify-between">
       <div className="flex flex-row gap-6">
-        <Button variant="link">
-          <Typography className="text-base font-medium">Email</Typography>
+        <Button variant="ghost">
+          <Typography className="text-base font-light">Email</Typography>
         </Button>
-        <Button variant="link">
-          <Typography className="text-base font-medium">LinkedIn</Typography>
+        <Button variant="ghost">
+          <Typography className="text-base font-light">LinkedIn</Typography>
         </Button>
-        <Button variant="link">
-          <Typography className="text-base font-medium">GitHub</Typography>
+        <Button variant="ghost">
+          <Typography className="text-base font-light">GitHub</Typography>
         </Button>
       </div>
 
       <div className="flex flex-row items-center">
-        <Typography className="text-sm">@2026</Typography>
+        <Typography className="text-xs font-light">@2026</Typography>
       </div>
     </div>
   );
