@@ -1,0 +1,32 @@
+# Dependencies
+node_modules
+**/node_modules
+
+# Build outputs
+dist
+**/dist
+.next
+**/.next
+
+# Git
+.git
+.gitignore
+
+# IDE
+.vscode
+.idea
+*.swp
+*.swo
+
+# Env files (use build args instead)
+.env
+.env.*
+!.env.example
+
+# Misc
+*.log
+.DS_Store
+coverage
+**/__tests__
+**/*.test.*
+**/*.spec.*

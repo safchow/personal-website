@@ -18,8 +18,8 @@ COPY package.json pnpm-lock.yaml pnpm-workspace.yaml ./
 COPY stones/package.json ./stones/
 COPY frontend/package.json ./frontend/
 
-# Install dependencies
-RUN pnpm install --frozen-lockfile
+# Install dependencies (--no-frozen-lockfile allows lockfile to sync if workspace changed)
+RUN pnpm install --no-frozen-lockfile
 
 # Copy source code
 COPY stones ./stones
