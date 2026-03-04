@@ -1,14 +1,7 @@
 import { createFileRoute } from '@tanstack/react-router';
 
-export const Route = createFileRoute('/')({
-  component: () => {
-    return (
-      <div className="flex items-center justify-center min-h-screen">
-        <div className="text-center">
-          <h1 className="text-4xl font-bold mb-4">Welcome</h1>
-        </div>
-      </div>
-    );
-  },
-});
+import { Home } from '@/pages/Home';
 
+export const Route = createFileRoute('/')({
+  component: Home,
+});
