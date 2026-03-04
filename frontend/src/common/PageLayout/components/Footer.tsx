@@ -18,7 +18,7 @@ export const Footer: React.FC = () => {
         </Button>
       </div>
 
-      <div>
+      <div className="flex flex-row items-center">
         <Typography className="text-sm">@2026</Typography>
       </div>
     </div>

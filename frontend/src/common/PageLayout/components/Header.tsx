@@ -12,7 +12,7 @@ export const Header: React.FC = () => {
     setTheme(resolvedTheme === 'dark' ? 'light' : 'dark');
   return (
     <div className="w-full h-fit flex flex-row justify-between">
-      <div className="flex flex-row gap-4">
+      <div className="flex flex-row items-center gap-4">
         <StoneIcon />
         <Typography className="text-lg font-medium">
           Safwaan Chowdhury
