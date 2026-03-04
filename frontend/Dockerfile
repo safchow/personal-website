@@ -11,15 +11,15 @@ ENV VITE_API_URL=$VITE_API_URL
 
 WORKDIR /app
 
-# Copy root package files (exclude lockfile - fresh install avoids gems/lockfile mismatch)
-COPY package.json pnpm-workspace.yaml ./
+# Copy root package files and lockfile for reproducible install
+COPY package.json pnpm-lock.yaml pnpm-workspace.yaml ./
 
 # Copy package.json files for all workspaces
 COPY stones/package.json ./stones/
 COPY frontend/package.json ./frontend/
 
-# Install dependencies (no lockfile = fresh install, avoids CI lockfile sync issues)
-RUN pnpm install
+# Install dependencies (lockfile ensures correct native bindings for Alpine)
+RUN pnpm install --frozen-lockfile
 
 # Copy source code
 COPY stones ./stones
