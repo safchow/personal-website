@@ -12,7 +12,7 @@ export default defineConfig({
   resolve: {
     alias: {
       '@': path.resolve(__dirname, './src'),
-      '@gems': path.resolve(__dirname, '../gems/dist'),
+      '@stones': path.resolve(__dirname, '../stones/dist'),
     },
     dedupe: ['react', 'react-dom'],
   },
@@ -33,10 +33,10 @@ export default defineConfig({
   css: {
     postcss: './postcss.config.js',
   },
-  // Watch for changes in gems dist folder
+  // Watch for changes in stones dist folder
   server: {
     watch: {
-      ignored: ['!**/node_modules/@gems/**'],
+      ignored: ['!**/node_modules/@website/stones/**'],
     },
     fs: {
       allow: ['..'],

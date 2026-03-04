@@ -4,9 +4,9 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "dev": "concurrently \"pnpm --filter @website/gems dev\" \"pnpm --filter @website/frontend dev\" --names \"gems,frontend\" --prefix-colors \"cyan,magenta\"",
-    "build": "pnpm --filter @website/gems build && pnpm -r build",
-    "build:gems": "pnpm --filter @website/gems build",
+    "dev": "concurrently \"pnpm --filter @website/stones dev\" \"pnpm --filter @website/frontend dev\" --names \"stones,frontend\" --prefix-colors \"cyan,magenta\"",
+    "build": "pnpm --filter @website/stones build && pnpm -r build",
+    "build:stones": "pnpm --filter @website/stones build",
     "lint": "pnpm -r lint",
     "format": "pnpm -r format",
     "type-check": "pnpm -r type-check",

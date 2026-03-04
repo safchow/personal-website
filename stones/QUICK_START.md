@@ -1,4 +1,4 @@
-# Website Gems - Component Library Setup
+# Website Stones - Component Library Setup
 
 ## Quick Start
 
@@ -25,7 +25,7 @@
 ## Package Structure
 
 ```
-website-gems/
+website-stones/
 ├── src/
 │   ├── components/          # Component implementations
 │   │   └── ExampleCard/     # Example component
@@ -53,8 +53,8 @@ website-gems/
 ## Usage in Frontend
 
 ```tsx
-import { ExampleCard } from '@website/gems';
-import '@website/gems/styles';
+import { ExampleCard } from '@website/stones';
+import '@website/stones/styles';
 ```
 
 ## Build Output

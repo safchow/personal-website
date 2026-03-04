@@ -9,9 +9,9 @@
     "skipLibCheck": true,
     "baseUrl": ".",
     "paths": {
-      "@/*": ["./src/*", "../gems/src/*"],
-      "@gems": ["../gems/src/index.ts"],
-      "@gems/*": ["../gems/src/*"]
+      "@/*": ["./src/*", "../stones/src/*"],
+      "@stones": ["../stones/src/index.ts"],
+      "@stones/*": ["../stones/src/*"]
     },
 
     /* Bundler mode */
@@ -33,6 +33,6 @@
     "src/**/*",
     "tailwind.config.js",
     "postcss.config.js",
-    "../gems/src/**/*"
+    "../stones/src/**/*"
   ]
 }

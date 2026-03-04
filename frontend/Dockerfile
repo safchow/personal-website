@@ -15,18 +15,18 @@ WORKDIR /app
 COPY package.json pnpm-lock.yaml pnpm-workspace.yaml ./
 
 # Copy package.json files for all workspaces
-COPY gems/package.json ./gems/
+COPY stones/package.json ./stones/
 COPY frontend/package.json ./frontend/
 
 # Install dependencies
 RUN pnpm install --frozen-lockfile
 
 # Copy source code
-COPY gems ./gems
+COPY stones ./stones
 COPY frontend ./frontend
 
 # Build dependencies first
-RUN pnpm --filter @website/gems build
+RUN pnpm --filter @website/stones build
 
 # Build frontend
 RUN pnpm --filter @website/frontend build

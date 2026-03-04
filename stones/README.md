@@ -1,10 +1,10 @@
-# Website Gems
+# Website Stones
 
 Reusable component library for website applications.
 
 ## Overview
 
-`@website/gems` is a component library built on top of Radix UI and Tailwind CSS. It provides reusable, accessible components that can be used across website applications.
+`@website/stones` is a component library built on top of Radix UI and Tailwind CSS. It provides reusable, accessible components that can be used across website applications.
 
 **Contains:**
 - shadcn/ui base components (`Button`, `Card`, etc.)
@@ -13,8 +13,8 @@ Reusable component library for website applications.
 ## Usage
 
 ```tsx
-import { Button, ExampleCard } from '@website/gems';
-import '@website/gems/styles';
+import { Button, ExampleCard } from '@website/stones';
+import '@website/stones/styles';
 ```
 
 ## Development
@@ -23,8 +23,8 @@ import '@website/gems/styles';
 ### Adding shadcn/ui Components
 
 ```bash
-# From website-gems directory
-cd website-gems
+# From website-stones directory
+cd website-stones
 npx shadcn@latest add [component-name]
 ```
 
@@ -41,7 +41,7 @@ Components will be added to `src/components/ui/` automatically.
 ## Project Structure
 
 ```
-website-gems/
+website-stones/
 ├── src/
 │   ├── components/
 │   │   ├── ui/          # shadcn/ui components
