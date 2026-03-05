@@ -6,7 +6,7 @@ import * as React from 'react';
 
 import { Typography } from '@/common/Typography';
 import { useTheme } from '@/components/theme-provider';
-import { GITHUB_URL, LINKEDIN_URL } from '@/lib/constants';
+import { GITHUB_URL, LINKEDIN_URL, RESUME_URL } from '@/lib/constants';
 
 export const Header: React.FC = () => {
   return (
@@ -22,15 +22,23 @@ export const Header: React.FC = () => {
         <Button variant="ghost">
           <Typography className="text-base font-light">About</Typography>
         </Button>
-        <Button variant="ghost">
-          <Typography className="text-base font-light">Resume</Typography>
-        </Button>
 
+        <ResumeButton />
         <GitHubButton />
         <LinkedInButton />
         <ThemeToggleButton />
       </div>
     </div>
+  );
+};
+
+const ResumeButton: React.FC = () => {
+  return (
+    <Button asChild variant="ghost" aria-label="Resume">
+      <a href={RESUME_URL} target="_blank" rel="noopener noreferrer">
+        <Typography className="text-base font-light">Resume</Typography>
+      </a>
+    </Button>
   );
 };
 
