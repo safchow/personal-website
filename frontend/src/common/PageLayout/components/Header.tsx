@@ -1,12 +1,20 @@
 import { faGithub, faLinkedin } from '@fortawesome/free-brands-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { Button } from '@stones';
-import { MoonIcon, StoneIcon, SunIcon } from 'lucide-react';
+import { Button, Tooltip, TooltipContent, TooltipTrigger } from '@stones';
+import {
+  CheckIcon,
+  MailIcon,
+  MoonIcon,
+  StoneIcon,
+  SunIcon,
+} from 'lucide-react';
 import * as React from 'react';
 
 import { Typography } from '@/common/Typography';
 import { useTheme } from '@/components/theme-provider';
-import { GITHUB_URL, LINKEDIN_URL, RESUME_URL } from '@/lib/constants';
+import { EMAIL, GITHUB_URL, LINKEDIN_URL, RESUME_URL } from '@/lib/constants';
+
+const COPY_RESET_DELAY_MS = 2000;
 
 export const Header: React.FC = () => {
   return (
@@ -24,6 +32,7 @@ export const Header: React.FC = () => {
         </Button>
 
         <ResumeButton />
+        <EmailButton />
         <GitHubButton />
         <LinkedInButton />
         <ThemeToggleButton />
@@ -39,6 +48,45 @@ const ResumeButton: React.FC = () => {
         <Typography className="text-base font-light">Resume</Typography>
       </a>
     </Button>
+  );
+};
+
+const EmailButton: React.FC = () => {
+  const [isCopied, setIsCopied] = React.useState(false);
+
+  const copyEmail = async () => {
+    try {
+      await navigator.clipboard.writeText(EMAIL);
+      setIsCopied(true);
+      setTimeout(() => setIsCopied(false), COPY_RESET_DELAY_MS);
+    } catch {
+      setIsCopied(false);
+    }
+  };
+
+  return (
+    <Tooltip>
+      <TooltipTrigger asChild>
+        <Button
+          variant="ghost"
+          size="icon"
+          onClick={copyEmail}
+          aria-label={isCopied ? 'Copied' : 'Copy email'}
+        >
+          <span className="relative inline-block size-6">
+            <MailIcon
+              className={`absolute inset-0 size-6 transition-opacity duration-200 ease-in-out ${isCopied ? 'opacity-0' : 'opacity-100'}`}
+            />
+            <CheckIcon
+              className={`absolute inset-0 size-6 transition-opacity duration-200 ease-in-out ${isCopied ? 'opacity-100' : 'opacity-0'}`}
+            />
+          </span>
+        </Button>
+      </TooltipTrigger>
+      <TooltipContent>
+        <p>Copy email</p>
+      </TooltipContent>
+    </Tooltip>
   );
 };
 
