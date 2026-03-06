@@ -4,25 +4,21 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Safwaan</title>
-  </head>
-  <body>
+    <!-- Critical theme CSS - prevents flash before main stylesheet loads -->
+    <style>
+      html.dark, html.dark body { background-color: hsl(223, 12%, 11%); color: hsl(0, 0%, 100%); }
+      html.light, html.light body { background-color: hsl(0, 0%, 100%); color: hsl(240, 10%, 3.9%); }
+    </style>
     <script>
-      (function() {
-        const stored = localStorage.getItem('theme');
-        const dark = stored === 'dark' || ((!stored || stored === 'system') && window.matchMedia('(prefers-color-scheme: dark)').matches);
-        if (dark) {
-          document.documentElement.classList.add('dark');
-          var bg = 'hsl(223, 12%, 11%)';
-          var fg = 'hsl(0, 0%, 100%)';
-          document.documentElement.style.backgroundColor = bg;
-          document.documentElement.style.color = fg;
-          document.body.style.backgroundColor = bg;
-          document.body.style.color = fg;
-        }
+      (function(){
+        var stored = localStorage.getItem('theme');
+        var dark = stored === 'dark' || ((!stored || stored === 'system') && window.matchMedia('(prefers-color-scheme: dark)').matches);
+        document.documentElement.classList.add(dark ? 'dark' : 'light');
       })();
     </script>
+  </head>
+  <body>
     <div id="root"></div>
     <script type="module" src="/src/main.tsx"></script>
   </body>
 </html>
-
