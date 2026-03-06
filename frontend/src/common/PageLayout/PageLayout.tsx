@@ -12,7 +12,7 @@ export const PageLayout: React.FC<PageLayoutProps> = ({ children }) => {
       <div className="animate-fade-in [animation-delay:0ms]">
         <Header />
       </div>
-      <div className="flex flex-1 min-h-0 justify-center animate-fade-in opacity-0 [animation-delay:100ms]">
+      <div className="flex flex-1 min-h-0 overflow-hidden animate-fade-in opacity-0 [animation-delay:100ms]">
         {children}
       </div>
       <div className="animate-fade-in opacity-0 [animation-delay:200ms]">
