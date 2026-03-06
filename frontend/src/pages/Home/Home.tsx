@@ -12,11 +12,11 @@ export const Home: React.FC = () => {
         <div className="flex flex-row gap-20 items-stretch w-full min-w-0 h-full">
           <div className="flex flex-shrink-0 flex-col items-start justify-center">
             <Typography className="text-5xl font-medium mb-8">
-              Building systems that hold.
+              Building systems that last.
             </Typography>
             <Typography className="mb-4">
               I build full-stack TypeScript products, from backend services to
-              thoughtful React interfaces.
+              React interfaces.
             </Typography>
             <Typography>
               Currently a Full-Stack Engineer at{' '}
