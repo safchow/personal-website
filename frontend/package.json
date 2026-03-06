@@ -30,6 +30,7 @@
     "@website/stones": "workspace:*",
     "axios": "^1.7.7",
     "better-auth": "^1.3.34",
+    "framer-motion": "^12.35.0",
     "lucide-react": "^0.561.0",
     "react": "^19.2.0",
     "react-dom": "^19.2.0",
