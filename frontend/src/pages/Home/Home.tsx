@@ -26,7 +26,7 @@ export const Home: React.FC = () => {
                 rel="noopener noreferrer"
                 className="link-inline"
               >
-                Relay
+                Relay Financial
               </a>
               .
             </Typography>
