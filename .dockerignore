@@ -6,7 +6,5 @@ dist
 !.env.example
 *.log
 .DS_Store
-frontend
-stones
 coverage
 .nyc_output
