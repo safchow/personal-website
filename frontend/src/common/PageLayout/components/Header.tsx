@@ -20,7 +20,7 @@ export const Header: React.FC = () => {
   return (
     <div className="w-full h-fit flex flex-row justify-between">
       <div className="flex flex-row items-center gap-4">
-        <StoneIcon className="size-6" />
+        <StoneIcon className="size-6 shrink-0" />
         <Typography className="text-lg font-normal">
           Safwaan Chowdhury
         </Typography>

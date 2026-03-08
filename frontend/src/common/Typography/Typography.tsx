@@ -12,7 +12,7 @@ export const Typography: React.FC<TypographyProps> = ({
   ...props
 }) => {
   return (
-    <Component className={`font-inter ${className}`.trim()} {...props}>
+    <Component className={`font-inter ${className}`} {...props}>
       {children}
     </Component>
   );
