@@ -14,9 +14,31 @@ import express, { json } from "express";
 
 const app = express();
 
+// Trust proxy (Railway uses a reverse proxy)
+app.set("trust proxy", 1);
+
+const allowedOrigins = [
+  config.clientUrl,
+  "https://www.safwaan-chowdhury.com",
+  "https://safwaan-chowdhury.com",
+  "http://localhost:5173",
+].filter(Boolean);
+
+// CORS first so preflight (OPTIONS) is handled before other middleware
+app.use(
+  cors({
+    origin: (origin, cb) => {
+      if (!origin) return cb(null, true); // same-origin or non-browser
+      if (allowedOrigins.includes(origin)) return cb(null, true);
+      if (origin.endsWith(".safwaan-chowdhury.com")) return cb(null, true);
+      cb(null, false);
+    },
+    methods: ["GET", "POST", "PUT", "DELETE", "PATCH", "OPTIONS"],
+    allowedHeaders: ["Content-Type", "Authorization"],
+  })
+);
 app.use(requestIdMiddleware);
 app.use(requestLogger);
-app.use(cors({ origin: config.clientUrl }));
 app.use(json());
 
 app.get("/health", (req, res) => {
