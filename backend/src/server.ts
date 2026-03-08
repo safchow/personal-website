@@ -24,13 +24,30 @@ const allowedOrigins = [
   "http://localhost:5173",
 ].filter(Boolean);
 
-// CORS first so preflight (OPTIONS) is handled before other middleware
+const isOriginAllowed = (origin: string | undefined) =>
+  !origin ||
+  allowedOrigins.includes(origin) ||
+  origin.endsWith(".safwaan-chowdhury.com");
+
+// Handle CORS preflight (OPTIONS) explicitly - must run before router
+app.use((req, res, next) => {
+  if (req.method === "OPTIONS") {
+    const origin = req.headers.origin;
+    if (isOriginAllowed(origin)) {
+      res.setHeader("Access-Control-Allow-Origin", origin || "*");
+      res.setHeader("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, PATCH, OPTIONS");
+      res.setHeader("Access-Control-Allow-Headers", "Content-Type, Authorization");
+      res.setHeader("Access-Control-Max-Age", "86400");
+      return res.status(204).end();
+    }
+  }
+  next();
+});
+
 app.use(
   cors({
     origin: (origin, cb) => {
-      if (!origin) return cb(null, true); // same-origin or non-browser
-      if (allowedOrigins.includes(origin)) return cb(null, true);
-      if (origin.endsWith(".safwaan-chowdhury.com")) return cb(null, true);
+      if (isOriginAllowed(origin)) return cb(null, true);
       cb(null, false);
     },
     methods: ["GET", "POST", "PUT", "DELETE", "PATCH", "OPTIONS"],
