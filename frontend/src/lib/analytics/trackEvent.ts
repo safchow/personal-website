@@ -1,3 +1,4 @@
+import { getDeviceMetadata } from './getDeviceMetadata';
 import { getSessionId } from './getSessionId';
 
 const getBaseUrl = (): string =>
@@ -18,6 +19,7 @@ export async function trackEvent(
     body: JSON.stringify({
       sessionId: getSessionId(),
       ...payload,
+      metadata: JSON.stringify(getDeviceMetadata()),
     }),
   });
   if (!res.ok) throw new Error('Failed to track event');
