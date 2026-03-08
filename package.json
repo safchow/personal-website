@@ -4,14 +4,16 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "dev": "concurrently \"pnpm --filter @website/stones dev\" \"pnpm --filter @website/frontend dev\" --names \"stones,frontend\" --prefix-colors \"cyan,magenta\"",
-    "build": "pnpm --filter @website/stones build && pnpm -r build",
+    "dev": "concurrently \"pnpm --filter @website/stones dev\" \"pnpm --filter @website/core dev\" \"pnpm --filter @website/backend dev\" \"pnpm --filter @website/frontend dev\" --names \"stones,core,backend,frontend\" --prefix-colors \"cyan,blue,magenta,green\"",
+    "build": "pnpm --filter @website/stones build && pnpm --filter @website/core build && pnpm -r build",
     "build:stones": "pnpm --filter @website/stones build",
     "lint": "pnpm -r lint",
     "format": "pnpm -r format",
     "type-check": "pnpm -r type-check",
     "clean": "rm -rf node_modules && pnpm -r exec rm -rf node_modules dist",
-    "install:all": "pnpm install"
+    "install:all": "pnpm install",
+    "docker:up": "docker compose up -d mongodb",
+    "docker:down": "docker compose down"
   },
   "devDependencies": {
     "concurrently": "^9.1.0",

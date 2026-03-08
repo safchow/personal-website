@@ -1,0 +1,22 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mongodb"
+  url      = env("DATABASE_URL")
+}
+
+model Event {
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  sessionId String
+  type      String   // "click" | "pageview"
+  target    String?  // button id, element text, etc.
+  path      String?  // current route/path
+  timestamp DateTime @default(now())
+  metadata  String?  // JSON string for extra data
+
+  @@index([sessionId])
+  @@index([timestamp])
+  @@map("events")
+}
