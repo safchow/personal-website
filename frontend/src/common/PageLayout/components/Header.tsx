@@ -2,6 +2,7 @@ import { StoneIcon } from 'lucide-react';
 import * as React from 'react';
 
 import { Typography } from '@/common/Typography';
+import { useIsMobile } from '@/hooks';
 
 import {
   EmailButton,
@@ -12,6 +13,8 @@ import {
 } from './Buttons';
 
 export const Header: React.FC = () => {
+  const isMobile = useIsMobile();
+
   return (
     <div className="w-full h-fit flex flex-row justify-between">
       <div className="flex flex-row items-center gap-4">
@@ -26,10 +29,15 @@ export const Header: React.FC = () => {
           <Typography className="text-base font-light">About</Typography>
         </Button> */}
 
-        <EmailButton />
-        <ResumeButton />
-        <GitHubButton />
-        <LinkedInButton />
+        {!isMobile && (
+          <>
+            <EmailButton />
+            <ResumeButton />
+            <GitHubButton />
+            <LinkedInButton />
+          </>
+        )}
+
         <ThemeToggleButton />
       </div>
     </div>
