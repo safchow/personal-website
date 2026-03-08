@@ -9,7 +9,6 @@ import {
   requestIdMiddleware,
   requestLogger,
 } from "@website/core";
-import cors from "cors";
 import express, { json } from "express";
 
 const app = express();
@@ -17,43 +16,17 @@ const app = express();
 // Trust proxy (Railway uses a reverse proxy)
 app.set("trust proxy", 1);
 
-const allowedOrigins = [
-  config.clientUrl,
-  "https://www.safwaan-chowdhury.com",
-  "https://safwaan-chowdhury.com",
-  "http://localhost:5173",
-].filter(Boolean);
-
-const isOriginAllowed = (origin: string | undefined) =>
-  !origin ||
-  allowedOrigins.includes(origin) ||
-  origin.endsWith(".safwaan-chowdhury.com");
-
-// Handle CORS preflight (OPTIONS) explicitly - must run before router
+// Relaxed CORS - allow all origins (TODO: restrict later)
 app.use((req, res, next) => {
+  const origin = req.headers.origin;
+  res.setHeader("Access-Control-Allow-Origin", origin || "*");
+  res.setHeader("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, PATCH, OPTIONS");
+  res.setHeader("Access-Control-Allow-Headers", "Content-Type, Authorization");
   if (req.method === "OPTIONS") {
-    const origin = req.headers.origin;
-    if (isOriginAllowed(origin)) {
-      res.setHeader("Access-Control-Allow-Origin", origin || "*");
-      res.setHeader("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, PATCH, OPTIONS");
-      res.setHeader("Access-Control-Allow-Headers", "Content-Type, Authorization");
-      res.setHeader("Access-Control-Max-Age", "86400");
-      return res.status(204).end();
-    }
+    return res.status(204).end();
   }
   next();
 });
-
-app.use(
-  cors({
-    origin: (origin, cb) => {
-      if (isOriginAllowed(origin)) return cb(null, true);
-      cb(null, false);
-    },
-    methods: ["GET", "POST", "PUT", "DELETE", "PATCH", "OPTIONS"],
-    allowedHeaders: ["Content-Type", "Authorization"],
-  })
-);
 app.use(requestIdMiddleware);
 app.use(requestLogger);
 app.use(json());
