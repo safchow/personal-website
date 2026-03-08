@@ -177,7 +177,6 @@ a.link-inline:hover {
     @apply border-border outline-ring/50;
     transition:
       background-color 0.25s ease-in-out,
-      color 0.25s ease-in-out,
       border-color 0.25s ease-in-out,
       box-shadow 0.25s ease-in-out;
   }
