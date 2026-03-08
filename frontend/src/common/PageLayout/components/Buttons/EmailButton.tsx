@@ -3,6 +3,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Button, Tooltip, TooltipContent, TooltipTrigger } from '@stones';
 import React from 'react';
 
+import { useTrackedClick } from '@/lib/analytics/useTrackedClick';
 import { EMAIL } from '@/lib/constants';
 
 const COPY_RESET_DELAY_MS = 2000;
@@ -20,13 +21,15 @@ export const EmailButton: React.FC = () => {
     }
   };
 
+  const handleClick = useTrackedClick('email', copyEmail);
+
   return (
     <Tooltip>
       <TooltipTrigger asChild>
         <Button
           variant="ghost"
           size="icon"
-          onClick={copyEmail}
+          onClick={handleClick}
           aria-label={isCopied ? 'Copied' : 'Copy email'}
         >
           <span className="relative inline-block size-6">

@@ -2,6 +2,7 @@ import { Button } from '@stones';
 import { MoonIcon, SunIcon } from 'lucide-react';
 
 import { useTheme } from '@/components/theme-provider';
+import { useTrackedClick } from '@/lib/analytics/useTrackedClick';
 
 export const ThemeToggleButton: React.FC = () => {
   const { resolvedTheme, setTheme } = useTheme();
@@ -9,11 +10,13 @@ export const ThemeToggleButton: React.FC = () => {
   const toggleTheme = () =>
     setTheme(resolvedTheme === 'dark' ? 'light' : 'dark');
 
+  const handleClick = useTrackedClick('theme', toggleTheme);
+
   return (
     <Button
       variant="ghost"
       size="icon"
-      onClick={toggleTheme}
+      onClick={handleClick}
       aria-label="Toggle dark mode"
     >
       <span className="relative inline-block size-5">
