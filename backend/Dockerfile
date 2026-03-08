@@ -1,4 +1,5 @@
 # Multi-stage build for backend service
+# Build context: repo root (docker build -f backend/Dockerfile .)
 FROM node:18-alpine AS base
 
 RUN apk add --no-cache python3 make g++ && \
