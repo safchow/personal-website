@@ -1,4 +1,4 @@
-import { faCheck, faEnvelope } from '@fortawesome/free-solid-svg-icons';
+import { faClipboardCheck, faEnvelope } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Button, Tooltip, TooltipContent, TooltipTrigger } from '@stones';
 import React from 'react';
@@ -35,7 +35,7 @@ export const EmailButton: React.FC = () => {
               className={`absolute inset-0 size-6 transition-opacity duration-200 ease-in-out ${isCopied ? 'opacity-0' : 'opacity-100'}`}
             />
             <FontAwesomeIcon
-              icon={faCheck}
+              icon={faClipboardCheck}
               className={`absolute inset-0 size-6 transition-opacity duration-200 ease-in-out ${isCopied ? 'opacity-100' : 'opacity-0'}`}
             />
           </span>
