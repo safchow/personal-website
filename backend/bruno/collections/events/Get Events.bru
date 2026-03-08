@@ -1,0 +1,62 @@
+meta {
+  name: Get Events
+  type: http
+  seq: 1
+}
+
+get {
+  url: {{base_url}}/api/events
+  body: none
+  auth: none
+}
+
+params:query {
+  limit: 100
+  key: {{admin_key}}
+}
+
+vars:pre-request {
+  base_url: api.safwaan-chowdhury.com
+}
+
+docs {
+  # Get Events
+  
+  List analytics events from MongoDB. Use this to view data when you can't connect directly (e.g. Railway internal hosts).
+  
+  **Endpoint:** `GET /api/events`
+  
+  ## Query Parameters
+  
+  - `limit` (optional): Max events to return (default 100, max 1000)
+  - `key` (optional): Required if `ADMIN_API_KEY` is set on the server. Set `admin_key` in your Bruno environment to match.
+  
+  ## Response
+  
+  Returns events ordered by timestamp (newest first).
+  
+  ## Success Response (200)
+  
+  ```json
+  {
+    "data": {
+      "events": [
+        {
+          "id": "...",
+          "sessionId": "...",
+          "type": "click",
+          "target": "github-button",
+          "path": "/",
+          "timestamp": "2025-03-03T...",
+          "metadata": "{...}"
+        }
+      ]
+    },
+    "meta": { "count": 42 }
+  }
+  ```
+  
+  ## Error Responses
+  
+  - `401 Unauthorized`: Invalid or missing `key` when `ADMIN_API_KEY` is configured
+}
