@@ -27,9 +27,9 @@ export const Header: React.FC = () => {
       </div>
 
       <div className="flex flex-row gap-4">
-        <Button variant="ghost">
+        {/* <Button variant="ghost">
           <Typography className="text-base font-light">About</Typography>
-        </Button>
+        </Button> */}
 
         <ResumeButton />
         <EmailButton />
