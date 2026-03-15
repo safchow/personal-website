@@ -1,11 +1,13 @@
 /* Inter font - must be before Tailwind */
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap');
 
-/* Import Tailwind CSS v4 */
-@import "tailwindcss";
-
 /* Import component library styles */
 @import '@website/stones/styles';
+
+/* Import Tailwind CSS v4 */
+@import "tailwindcss";
+@source "./";
+@source "../../stones/src";
 
 @custom-variant dark (&:is(.dark *));
 
