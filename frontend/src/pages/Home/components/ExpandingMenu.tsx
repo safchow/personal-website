@@ -8,7 +8,7 @@ export const ExpandingMenu: React.FC = () => {
 
   return (
     <div className="flex w-full min-h-0 flex-1 overflow-hidden">
-      <div className="flex h-full w-full min-h-0 flex-col lg:flex-row gap-1.5 sm:gap-2 md:gap-3">
+      <div className="flex h-full w-full min-h-0 flex-col lg:flex-row gap-2">
         {menuItems.map((item, index) => (
           <MenuItem
             key={item.id}
