@@ -18,7 +18,7 @@ export const LinkedInButton: React.FC = () => {
         rel="noopener noreferrer"
         onClick={handleClick}
       >
-        <FontAwesomeIcon icon={faLinkedin} className="size-6" />
+        <FontAwesomeIcon icon={faLinkedin} size="lg" />
       </a>
     </Button>
   );

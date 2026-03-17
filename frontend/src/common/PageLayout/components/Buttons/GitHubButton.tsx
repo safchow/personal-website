@@ -18,7 +18,7 @@ export const GitHubButton: React.FC = () => {
         rel="noopener noreferrer"
         onClick={handleClick}
       >
-        <FontAwesomeIcon icon={faGithub} className="size-6" />
+        <FontAwesomeIcon icon={faGithub} size="lg" />
       </a>
     </Button>
   );

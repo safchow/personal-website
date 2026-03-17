@@ -1,7 +1,4 @@
-import {
-  faClipboardCheck,
-  faEnvelope,
-} from '@fortawesome/free-solid-svg-icons';
+import { faEnvelope } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import React from 'react';
 
@@ -40,16 +37,7 @@ export const EmailButton: React.FC = () => {
           onClick={handleClick}
           aria-label={isCopied ? 'Copied' : 'Copy email'}
         >
-          <span className="relative inline-block size-6">
-            <FontAwesomeIcon
-              icon={faEnvelope}
-              className={`absolute inset-0 size-6 transition-opacity duration-200 ease-in-out ${isCopied ? 'opacity-0' : 'opacity-100'}`}
-            />
-            <FontAwesomeIcon
-              icon={faClipboardCheck}
-              className={`absolute inset-0 size-6 transition-opacity duration-200 ease-in-out ${isCopied ? 'opacity-100' : 'opacity-0'}`}
-            />
-          </span>
+          <FontAwesomeIcon icon={faEnvelope} size="lg" />
         </Button>
       </TooltipTrigger>
       <TooltipContent>

@@ -18,7 +18,7 @@ export const ResumeButton: React.FC = () => {
         rel="noopener noreferrer"
         onClick={handleClick}
       >
-        <FontAwesomeIcon icon={faFileLines} className="size-6" />
+        <FontAwesomeIcon icon={faFileLines} size="lg" />
       </a>
     </Button>
   );
