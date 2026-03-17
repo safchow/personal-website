@@ -1,13 +1,14 @@
-import { cn } from '@stones';
 import { motion } from 'framer-motion';
 import * as React from 'react';
+
+import { cn } from '@/lib/utils';
 
 export const ExpandingMenu: React.FC = () => {
   const [activeId, setActiveId] = React.useState(menuItems[0]?.id ?? '');
 
   return (
     <div className="flex w-full min-h-0 flex-1 overflow-hidden">
-      <div className="flex w-full h-full min-h-0 gap-1.5 sm:gap-2 md:gap-3">
+      <div className="flex h-full w-full min-h-0 flex-col lg:flex-row gap-1.5 sm:gap-2 md:gap-3">
         {menuItems.map((item, index) => (
           <MenuItem
             key={item.id}
@@ -66,12 +67,12 @@ const MenuItem: React.FC<MenuItemProps> = ({
   return (
     <motion.div
       className={cn(
-        'relative h-full rounded-xl overflow-hidden cursor-pointer flex flex-col min-w-0',
+        'relative flex w-full min-h-0 flex-col overflow-hidden rounded-xl cursor-pointer',
         item.gradientClass
       )}
       initial={false}
       animate={{
-        flex: isActive ? 3 : 1,
+        flex: isActive ? 15 : 1,
       }}
       transition={{
         type: 'spring',
