@@ -22,22 +22,25 @@ export const HomeContent: React.FC = () => {
       <Typography className="text-2xl sm:text-3xl md:text-4xl font-medium mb-6 sm:mb-8">
         Building systems that last.
       </Typography>
-      <Typography className="text-sm mb-4">
-        I build full-stack TypeScript products, from backend services to React
-        interfaces.
-      </Typography>
-      <Typography className="text-sm">
-        Currently a Full-Stack Engineer at{' '}
-        <a
-          href="https://relayfi.com/"
-          target="_blank"
-          rel="noopener noreferrer"
-          className="link-inline"
-        >
-          Relay Financial
-        </a>
-        .
-      </Typography>
+
+      <div className="flex flex-col gap-4">
+        <Typography className="text-sm">
+          I build full-stack TypeScript products, from backend services to React
+          interfaces.
+        </Typography>
+        <Typography className="text-sm">
+          Currently a Full-Stack Engineer at{' '}
+          <a
+            href="https://relayfi.com/"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="link-inline"
+          >
+            Relay Financial
+          </a>
+          .
+        </Typography>
+      </div>
     </div>
   );
 };
