@@ -10,7 +10,6 @@ export default defineConfig({
   resolve: {
     alias: {
       '@': path.resolve(__dirname, './src'),
-      '@stones': path.resolve(__dirname, '../stones/dist'),
     },
     dedupe: ['react', 'react-dom'],
   },
@@ -28,11 +27,7 @@ export default defineConfig({
       '@radix-ui/react-toggle-group',
     ],
   },
-  // Watch for changes in stones dist folder
   server: {
-    watch: {
-      ignored: ['!**/node_modules/@website/stones/**'],
-    },
     fs: {
       allow: ['..'],
     },

@@ -1,8 +1,16 @@
-import { faClipboardCheck, faEnvelope } from '@fortawesome/free-solid-svg-icons';
+import {
+  faClipboardCheck,
+  faEnvelope,
+} from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { Button, Tooltip, TooltipContent, TooltipTrigger } from '@stones';
 import React from 'react';
 
+import { Button } from '@/components/ui/button';
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipTrigger,
+} from '@/components/ui/tooltip';
 import { useTrackedClick } from '@/lib/analytics/useTrackedClick';
 import { EMAIL } from '@/lib/constants';
 

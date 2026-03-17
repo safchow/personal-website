@@ -9,9 +9,7 @@
     "skipLibCheck": true,
     "baseUrl": ".",
     "paths": {
-      "@/*": ["./src/*", "../stones/src/*"],
-      "@stones": ["../stones/src/index.ts"],
-      "@stones/*": ["../stones/src/*"]
+      "@/*": ["./src/*"]
     },
 
     /* Bundler mode */
@@ -32,7 +30,6 @@
   "include": [
     "src/**/*",
     "tailwind.config.js",
-    "postcss.config.js",
-    "../stones/src/**/*"
+    "postcss.config.js"
   ]
 }

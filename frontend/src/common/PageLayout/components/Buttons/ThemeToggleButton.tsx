@@ -1,7 +1,7 @@
-import { Button } from '@stones';
 import { MoonIcon, SunIcon } from 'lucide-react';
 
 import { useTheme } from '@/components/theme-provider';
+import { Button } from '@/components/ui/button';
 import { useTrackedClick } from '@/lib/analytics/useTrackedClick';
 
 export const ThemeToggleButton: React.FC = () => {

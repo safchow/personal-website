@@ -1,7 +1,7 @@
 import { faGithub } from '@fortawesome/free-brands-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { Button } from '@stones';
 
+import { Button } from '@/components/ui/button';
 import { useTrackedClick } from '@/lib/analytics/useTrackedClick';
 import { GITHUB_URL } from '@/lib/constants';
 
