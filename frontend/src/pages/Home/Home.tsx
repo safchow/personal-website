@@ -8,7 +8,7 @@ import { ExpandingMenu } from './components';
 export const Home: React.FC = () => {
   return (
     <PageLayout>
-      <div className="flex flex-col lg:flex-row flex-1 min-h-0 gap-20 overflow-hidden">
+      <div className="flex flex-col lg:flex-row flex-1 min-h-0 gap-24 overflow-hidden">
         <HomeContent />
         <ExpandingMenu />
       </div>
@@ -18,7 +18,7 @@ export const Home: React.FC = () => {
 
 export const HomeContent: React.FC = () => {
   return (
-    <div className="flex flex-col items-center text-center justify-center w-full lg:w-1/2">
+    <div className="flex flex-col items-center text-center justify-center w-full lg:w-1/2 pt-12 lg:pt-0">
       <Typography className="text-2xl sm:text-3xl md:text-4xl font-medium mb-6 sm:mb-8">
         Building systems that last.
       </Typography>

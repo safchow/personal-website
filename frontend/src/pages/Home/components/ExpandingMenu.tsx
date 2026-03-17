@@ -72,7 +72,7 @@ const MenuItem: React.FC<MenuItemProps> = ({
       )}
       initial={false}
       animate={{
-        flex: isActive ? 15 : 1,
+        flex: isActive ? 9 : 1,
       }}
       transition={{
         type: 'spring',
