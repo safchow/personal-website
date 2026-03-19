@@ -6,14 +6,14 @@ export const CASE_STUDY_MENU_ITEMS: CaseStudyMenuItem[] = [
     description:
       'Designed a webhook-driven pipeline that turned Plaid events into reliable transaction syncs, keeping financial data current with background processing and incremental updates.',
   },
-  // todo: add more case studies, below are just placeholders
   {
     id: 'experience',
     gradientClass: 'expanding-menu-experience',
-    title: 'Shipping at Scale',
+    title: 'Understanding User Behavior',
     description:
-      'Full-stack features built for production teams, with an emphasis on reliability, iteration speed, and polish.',
+      'Built an anonymous analytics pipeline for tracking pageviews and clicks, making it easier to understand how users moved through the experience.',
   },
+  // // todo: add more case studies, below are just placeholders
   {
     id: 'skills',
     gradientClass: 'expanding-menu-skills',
