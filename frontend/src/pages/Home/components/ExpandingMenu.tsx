@@ -77,7 +77,7 @@ const MenuItem: React.FC<MenuItemProps> = ({
         className={cn(
           'pointer-events-none absolute inset-x-0 bottom-0 z-10 p-4 ease-out sm:p-5 md:p-6',
           isActive
-            ? 'visible translate-y-0 opacity-100 transition-all duration-200 delay-200'
+            ? 'visible translate-y-0 opacity-100 transition-[opacity,transform] duration-200 delay-300'
             : 'invisible translate-y-3 opacity-0 transition-none'
         )}
       >
