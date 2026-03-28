@@ -65,8 +65,10 @@ const MenuItem: React.FC<MenuItemProps> = ({
   return (
     <div
       className={cn(
-        'relative flex min-h-0 w-full basis-0 flex-col overflow-hidden rounded-xl cursor-pointer transition-[flex-grow] duration-300 ease-out',
-        isActive ? 'grow-[9]' : 'grow',
+        'relative flex min-h-0 w-full basis-0 flex-col overflow-hidden rounded-xl cursor-pointer transition-[flex-grow,filter] duration-300 ease-out',
+        isActive
+          ? 'grow-[9] saturate-100 brightness-100'
+          : 'grow saturate-[0.88] brightness-[0.98]',
         item.gradientClass
       )}
       onMouseEnter={onHover}
@@ -82,10 +84,10 @@ const MenuItem: React.FC<MenuItemProps> = ({
         )}
       >
         <div className="w-[20rem] max-w-full text-left sm:w-[22rem]">
-          <p className="text-lg font-semibold tracking-tight sm:text-xl">
+          <p className="text-[hsl(var(--menu-copy-title))] text-lg font-semibold tracking-tight sm:text-xl">
             {item.title}
           </p>
-          <p className="mt-2 text-sm leading-relaxed text-foreground/80">
+          <p className="mt-2 text-[hsl(var(--menu-copy-description))] text-sm leading-relaxed">
             {item.description}
           </p>
         </div>

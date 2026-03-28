@@ -10,18 +10,18 @@
 /* App-specific styles can be added below */
 
 :root {
-  --background: 0 0% 100%;
-  --foreground: 240 10% 3.9%;
+  --background: 34 29% 97%;
+  --foreground: 222 17% 20%;
   --card: 0 0% 100%;
-  --card-foreground: 240 10% 3.9%;
+  --card-foreground: 222 17% 20%;
   --popover: 0 0% 100%;
-  --popover-foreground: 240 10% 3.9%;
-  --primary: 240 5.9% 10%;
+  --popover-foreground: 222 17% 20%;
+  --primary: 222 16% 18%;
   --primary-foreground: 0 0% 98%;
   --secondary: 240 4.8% 95.9%;
   --secondary-foreground: 240 5.9% 10%;
   --muted: 240 4.8% 95.9%;
-  --muted-foreground: 240 3.8% 46.1%;
+  --muted-foreground: 222 11% 42%;
   --accent: 240 4.8% 95.9%;
   --accent-foreground: 240 5.9% 10%;
   --destructive: 0 84.2% 60.2%;
@@ -46,6 +46,9 @@
   --menu-blue-accent: 217 90% 60%;
   --menu-purple: 262 50% 94%;
   --menu-purple-accent: 262 70% 58%;
+  --menu-gradient-base: 0 0% 100%;
+  --menu-copy-title: 222 20% 18%;
+  --menu-copy-description: 222 12% 34%;
 }
 
 .dark {
@@ -84,6 +87,9 @@
   --menu-blue-accent: 217 80% 55%;
   --menu-purple: 262 45% 16%;
   --menu-purple-accent: 262 65% 52%;
+  --menu-gradient-base: 223 12% 11%;
+  --menu-copy-title: 0 0% 100%;
+  --menu-copy-description: 240 4% 89%;
 }
 
 @theme inline {
@@ -130,59 +136,83 @@
 /* ExpandingMenu colored gradients - green, red, blue, purple */
 .expanding-menu-projects {
   background:
-    radial-gradient(
-      circle at 70% 30%,
-      hsl(var(--menu-green-accent) / 0.5) 0%,
-      transparent 50%
-    ),
-    radial-gradient(
-      circle at 20% 80%,
-      hsl(var(--menu-green) / 0.9) 0%,
-      transparent 40%
-    ),
-    linear-gradient(135deg, hsl(var(--menu-green)), hsl(var(--background)));
+    radial-gradient(circle at 18% 18%, rgba(255, 255, 255, 0.82) 0%, transparent 36%),
+    linear-gradient(
+      135deg,
+      hsl(144 56% 80%) 0%,
+      hsl(161 52% 88%) 46%,
+      hsl(var(--menu-gradient-base)) 100%
+    );
+}
+.dark .expanding-menu-projects {
+  background:
+    radial-gradient(circle at 18% 18%, rgba(255, 255, 255, 0.08) 0%, transparent 34%),
+    linear-gradient(
+      135deg,
+      hsl(146 42% 23%) 0%,
+      hsl(165 34% 17%) 52%,
+      hsl(var(--menu-gradient-base)) 100%
+    );
 }
 .expanding-menu-experience {
   background:
-    radial-gradient(
-      circle at 10% 40%,
-      hsl(var(--menu-red-accent) / 0.5) 0%,
-      transparent 45%
-    ),
-    radial-gradient(
-      circle at 80% 70%,
-      hsl(var(--menu-red) / 0.9) 0%,
-      transparent 50%
-    ),
-    linear-gradient(180deg, hsl(var(--menu-red)), hsl(var(--background)));
+    radial-gradient(circle at 16% 18%, rgba(255, 255, 255, 0.8) 0%, transparent 34%),
+    linear-gradient(
+      145deg,
+      hsl(353 86% 84%) 0%,
+      hsl(16 88% 88%) 44%,
+      hsl(var(--menu-gradient-base)) 100%
+    );
+}
+.dark .expanding-menu-experience {
+  background:
+    radial-gradient(circle at 16% 18%, rgba(255, 255, 255, 0.075) 0%, transparent 34%),
+    linear-gradient(
+      145deg,
+      hsl(353 54% 25%) 0%,
+      hsl(11 48% 19%) 50%,
+      hsl(var(--menu-gradient-base)) 100%
+    );
 }
 .expanding-menu-skills {
   background:
-    radial-gradient(
-      ellipse at 30% 20%,
-      hsl(var(--menu-blue-accent) / 0.5) 0%,
-      transparent 60%
-    ),
-    radial-gradient(
-      circle at 80% 80%,
-      hsl(var(--menu-blue) / 0.9) 0%,
-      transparent 40%
-    ),
-    linear-gradient(225deg, hsl(var(--menu-blue)), hsl(var(--background)));
+    radial-gradient(circle at 20% 16%, rgba(255, 255, 255, 0.82) 0%, transparent 36%),
+    linear-gradient(
+      140deg,
+      hsl(210 88% 82%) 0%,
+      hsl(229 88% 88%) 48%,
+      hsl(var(--menu-gradient-base)) 100%
+    );
+}
+.dark .expanding-menu-skills {
+  background:
+    radial-gradient(circle at 20% 16%, rgba(255, 255, 255, 0.08) 0%, transparent 35%),
+    linear-gradient(
+      140deg,
+      hsl(212 58% 24%) 0%,
+      hsl(230 48% 18%) 54%,
+      hsl(var(--menu-gradient-base)) 100%
+    );
 }
 .expanding-menu-contact {
   background:
-    radial-gradient(
-      ellipse at 70% 20%,
-      hsl(var(--menu-purple-accent) / 0.5) 0%,
-      transparent 60%
-    ),
-    radial-gradient(
-      circle at 20% 60%,
-      hsl(var(--menu-purple) / 0.9) 0%,
-      transparent 45%
-    ),
-    linear-gradient(135deg, hsl(var(--menu-purple)), hsl(var(--background)));
+    radial-gradient(circle at 18% 18%, rgba(255, 255, 255, 0.8) 0%, transparent 35%),
+    linear-gradient(
+      140deg,
+      hsl(262 82% 86%) 0%,
+      hsl(289 72% 89%) 50%,
+      hsl(var(--menu-gradient-base)) 100%
+    );
+}
+.dark .expanding-menu-contact {
+  background:
+    radial-gradient(circle at 18% 18%, rgba(255, 255, 255, 0.075) 0%, transparent 35%),
+    linear-gradient(
+      140deg,
+      hsl(262 45% 25%) 0%,
+      hsl(286 36% 19%) 54%,
+      hsl(var(--menu-gradient-base)) 100%
+    );
 }
 
 /* Vignette: light bottom in light mode, dark bottom in dark mode */
