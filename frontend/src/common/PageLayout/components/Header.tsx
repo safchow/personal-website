@@ -1,3 +1,4 @@
+import { Link } from '@tanstack/react-router';
 import { StoneIcon } from 'lucide-react';
 import * as React from 'react';
 
@@ -17,12 +18,16 @@ export const Header: React.FC = () => {
 
   return (
     <div className="w-full h-fit flex flex-row justify-between">
-      <div className="flex flex-row items-center gap-4">
+      <Link
+        to="/"
+        className="flex flex-row items-center gap-4 rounded-md transition-opacity hover:opacity-80 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring/50"
+        aria-label="Go to homepage"
+      >
         <StoneIcon className="size-6 shrink-0" />
         <Typography className="text-lg font-normal">
           Safwaan Chowdhury
         </Typography>
-      </div>
+      </Link>
 
       <div className="flex flex-row gap-4">
         {/* <Button variant="ghost">
