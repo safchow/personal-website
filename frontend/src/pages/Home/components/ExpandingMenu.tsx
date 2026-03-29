@@ -1,3 +1,4 @@
+import { useNavigate } from '@tanstack/react-router';
 import * as React from 'react';
 
 import { cn } from '@/lib/utils';
@@ -7,6 +8,7 @@ import {
 } from '@/pages/Home/constants';
 
 export const ExpandingMenu: React.FC = () => {
+  const navigate = useNavigate();
   const [activeId, setActiveId] = React.useState(
     CASE_STUDY_MENU_ITEMS[0]?.id ?? ''
   );
@@ -20,6 +22,10 @@ export const ExpandingMenu: React.FC = () => {
             item={item}
             index={index}
             isActive={activeId === item.id}
+            onClick={() => {
+              if (!item.href) return;
+              void navigate({ to: item.href });
+            }}
             onHover={() => setActiveId(item.id)}
           />
         ))}
@@ -51,6 +57,7 @@ interface MenuItemProps {
   item: CaseStudyMenuItem;
   index: number;
   isActive: boolean;
+  onClick: () => void;
   onHover: () => void;
 }
 
@@ -58,6 +65,7 @@ const MenuItem: React.FC<MenuItemProps> = ({
   item,
   index,
   isActive,
+  onClick,
   onHover,
 }) => {
   const noiseIntensity = 0.3 + index * 0.05;
@@ -65,13 +73,24 @@ const MenuItem: React.FC<MenuItemProps> = ({
   return (
     <div
       className={cn(
-        'relative flex min-h-0 w-full basis-0 flex-col overflow-hidden rounded-xl cursor-pointer transition-[flex-grow,filter] duration-300 ease-out',
+        'relative flex min-h-0 w-full basis-0 flex-col overflow-hidden rounded-xl transition-[flex-grow,filter] duration-300 ease-out',
         isActive
           ? 'grow-[9] saturate-100 brightness-100'
           : 'grow saturate-[0.88] brightness-[0.98]',
+        item.href ? 'cursor-pointer' : 'cursor-default',
         item.gradientClass
       )}
+      onClick={onClick}
       onMouseEnter={onHover}
+      onKeyDown={(event) => {
+        if (!item.href) return;
+        if (event.key === 'Enter' || event.key === ' ') {
+          event.preventDefault();
+          onClick();
+        }
+      }}
+      role={item.href ? 'link' : undefined}
+      tabIndex={item.href ? 0 : undefined}
     >
       <NoiseOverlay intensity={noiseIntensity} />
       <div className="absolute inset-0 expanding-menu-vignette" />

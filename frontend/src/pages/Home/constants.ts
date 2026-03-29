@@ -2,7 +2,7 @@ export const CASE_STUDY_MENU_ITEMS: CaseStudyMenuItem[] = [
   {
     id: 'projects',
     gradientClass: 'menu-1-gradient',
-    href: '/case-studies/syncing-financial-data',
+    href: '/case-studies/opulus',
     title: 'Syncing Financial Data',
     description:
       'Designed a webhook-driven pipeline that turned Plaid events into reliable transaction syncs, keeping financial data current with background processing and incremental updates.',
