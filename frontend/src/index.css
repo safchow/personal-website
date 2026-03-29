@@ -134,7 +134,7 @@
 }
 
 /* ExpandingMenu colored gradients - green, red, blue, purple */
-.expanding-menu-projects {
+.menu-1-gradient {
   background:
     radial-gradient(circle at 18% 18%, rgba(255, 255, 255, 0.82) 0%, transparent 36%),
     linear-gradient(
@@ -144,7 +144,7 @@
       hsl(var(--menu-gradient-base)) 100%
     );
 }
-.dark .expanding-menu-projects {
+.dark .menu-1-gradient {
   background:
     radial-gradient(circle at 18% 18%, rgba(255, 255, 255, 0.08) 0%, transparent 34%),
     linear-gradient(
@@ -154,7 +154,7 @@
       hsl(var(--menu-gradient-base)) 100%
     );
 }
-.expanding-menu-experience {
+.menu-2-gradient {
   background:
     radial-gradient(circle at 16% 18%, rgba(255, 255, 255, 0.8) 0%, transparent 34%),
     linear-gradient(
@@ -164,7 +164,7 @@
       hsl(var(--menu-gradient-base)) 100%
     );
 }
-.dark .expanding-menu-experience {
+.dark .menu-2-gradient {
   background:
     radial-gradient(circle at 16% 18%, rgba(255, 255, 255, 0.075) 0%, transparent 34%),
     linear-gradient(
@@ -174,7 +174,7 @@
       hsl(var(--menu-gradient-base)) 100%
     );
 }
-.expanding-menu-skills {
+.menu-3-gradient {
   background:
     radial-gradient(circle at 20% 16%, rgba(255, 255, 255, 0.82) 0%, transparent 36%),
     linear-gradient(
@@ -184,7 +184,7 @@
       hsl(var(--menu-gradient-base)) 100%
     );
 }
-.dark .expanding-menu-skills {
+.dark .menu-3-gradient {
   background:
     radial-gradient(circle at 20% 16%, rgba(255, 255, 255, 0.08) 0%, transparent 35%),
     linear-gradient(
@@ -194,7 +194,7 @@
       hsl(var(--menu-gradient-base)) 100%
     );
 }
-.expanding-menu-contact {
+.menu-4-gradient {
   background:
     radial-gradient(circle at 18% 18%, rgba(255, 255, 255, 0.8) 0%, transparent 35%),
     linear-gradient(
@@ -204,7 +204,7 @@
       hsl(var(--menu-gradient-base)) 100%
     );
 }
-.dark .expanding-menu-contact {
+.dark .menu-4-gradient {
   background:
     radial-gradient(circle at 18% 18%, rgba(255, 255, 255, 0.075) 0%, transparent 35%),
     linear-gradient(
