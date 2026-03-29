@@ -1,18 +1,18 @@
 import * as React from 'react';
 
-import { PageLayout } from '@/common/PageLayout/PageLayout';
+import { PageContent } from '@/common/PageLayout/PageContent';
 import { Typography } from '@/common/Typography';
 
 import { ExpandingMenu } from './components';
 
 export const Home: React.FC = () => {
   return (
-    <PageLayout>
+    <PageContent>
       <div className="flex flex-col lg:flex-row flex-1 min-h-0 gap-24 overflow-hidden">
         <HomeContent />
         <ExpandingMenu />
       </div>
-    </PageLayout>
+    </PageContent>
   );
 };
 
