@@ -11,6 +11,7 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as SplatRouteImport } from './routes/$'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as CaseStudiesWebsiteRouteImport } from './routes/case-studies.website'
 import { Route as CaseStudiesOpulusRouteImport } from './routes/case-studies.opulus'
 
 const SplatRoute = SplatRouteImport.update({
@@ -23,6 +24,11 @@ const IndexRoute = IndexRouteImport.update({
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const CaseStudiesWebsiteRoute = CaseStudiesWebsiteRouteImport.update({
+  id: '/case-studies/website',
+  path: '/case-studies/website',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const CaseStudiesOpulusRoute = CaseStudiesOpulusRouteImport.update({
   id: '/case-studies/opulus',
   path: '/case-studies/opulus',
@@ -33,30 +39,34 @@ export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/$': typeof SplatRoute
   '/case-studies/opulus': typeof CaseStudiesOpulusRoute
+  '/case-studies/website': typeof CaseStudiesWebsiteRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/$': typeof SplatRoute
   '/case-studies/opulus': typeof CaseStudiesOpulusRoute
+  '/case-studies/website': typeof CaseStudiesWebsiteRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/$': typeof SplatRoute
   '/case-studies/opulus': typeof CaseStudiesOpulusRoute
+  '/case-studies/website': typeof CaseStudiesWebsiteRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/$' | '/case-studies/opulus'
+  fullPaths: '/' | '/$' | '/case-studies/opulus' | '/case-studies/website'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/$' | '/case-studies/opulus'
-  id: '__root__' | '/' | '/$' | '/case-studies/opulus'
+  to: '/' | '/$' | '/case-studies/opulus' | '/case-studies/website'
+  id: '__root__' | '/' | '/$' | '/case-studies/opulus' | '/case-studies/website'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   SplatRoute: typeof SplatRoute
   CaseStudiesOpulusRoute: typeof CaseStudiesOpulusRoute
+  CaseStudiesWebsiteRoute: typeof CaseStudiesWebsiteRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -75,6 +85,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/case-studies/website': {
+      id: '/case-studies/website'
+      path: '/case-studies/website'
+      fullPath: '/case-studies/website'
+      preLoaderRoute: typeof CaseStudiesWebsiteRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/case-studies/opulus': {
       id: '/case-studies/opulus'
       path: '/case-studies/opulus'
@@ -89,6 +106,7 @@ const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   SplatRoute: SplatRoute,
   CaseStudiesOpulusRoute: CaseStudiesOpulusRoute,
+  CaseStudiesWebsiteRoute: CaseStudiesWebsiteRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

@@ -10,6 +10,7 @@ export const CASE_STUDY_MENU_ITEMS: CaseStudyMenuItem[] = [
   {
     id: 'experience',
     gradientClass: 'menu-2-gradient',
+    href: '/case-studies/website',
     title: 'Understanding User Behavior',
     description:
       'Built an anonymous analytics pipeline for tracking pageviews and clicks, making it easier to understand how users moved through the experience.',
