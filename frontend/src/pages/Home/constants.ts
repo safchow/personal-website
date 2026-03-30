@@ -19,9 +19,10 @@ export const CASE_STUDY_MENU_ITEMS: CaseStudyMenuItem[] = [
   {
     id: 'skills',
     gradientClass: 'menu-3-gradient',
-    title: 'Engineering Craft',
+    href: '/case-studies/architecture',
+    title: 'Frontend Architecture',
     description:
-      'TypeScript-first architecture, thoughtful UI implementation, and backend systems that stay maintainable over time.',
+      'Architected frontend code around clear component layers, shared UI primitives, and reusable feature modules that keep interfaces scalable as products grow.',
   },
   {
     id: 'contact',
