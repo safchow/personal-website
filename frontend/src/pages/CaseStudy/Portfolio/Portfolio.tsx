@@ -239,37 +239,6 @@ export const PortfolioCaseStudy: React.FC = () => {
 
       <section className="space-y-4">
         <Typography as="h2" className="text-2xl font-medium tracking-tight">
-          Implementation Details
-        </Typography>
-        <Typography as="p" className="text-base leading-8 text-foreground/78">
-          On the frontend, the pageview tracking sits at the router level so it
-          can observe navigation directly. The implementation also guards
-          against duplicate events by remembering the last tracked path, which
-          helps keep the signal clean during client-side transitions.
-        </Typography>
-        <Typography as="p" className="text-base leading-8 text-foreground/78">
-          On the backend, events are validated with a small schema and written
-          to the database through a dedicated endpoint. There is also a
-          protected listing route for reviewing captured events, which makes the
-          pipeline more useful as an internal feedback tool instead of just a
-          fire-and-forget write.
-        </Typography>
-        <div className="pt-2">
-          <Button asChild variant="secondary">
-            <a
-              href={PERSONAL_PORTFOLIO_REPO_URL}
-              target="_blank"
-              rel="noreferrer"
-            >
-              <FontAwesomeIcon icon={faGithub} size="lg" />
-              View repository
-            </a>
-          </Button>
-        </div>
-      </section>
-
-      <section className="space-y-4">
-        <Typography as="h2" className="text-2xl font-medium tracking-tight">
           Outcome
         </Typography>
         <Typography as="p" className="text-base leading-8 text-foreground/78">
@@ -300,6 +269,25 @@ export const PortfolioCaseStudy: React.FC = () => {
           </Typography>
         </CardContent>
       </Card>
+
+      <div className="space-y-4">
+        <Typography as="p" className="text-base leading-8 text-foreground/68">
+          If you&apos;re interested in how the implementation comes together, you
+          can explore the repository below.
+        </Typography>
+        <div>
+          <Button asChild variant="secondary">
+            <a
+              href={PERSONAL_PORTFOLIO_REPO_URL}
+              target="_blank"
+              rel="noreferrer"
+            >
+              <FontAwesomeIcon icon={faGithub} size="lg" />
+              View repository
+            </a>
+          </Button>
+        </div>
+      </div>
     </CaseStudyLayout>
   );
 };
