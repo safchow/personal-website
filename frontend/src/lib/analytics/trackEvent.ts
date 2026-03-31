@@ -1,8 +1,6 @@
+import { getBaseUrl } from './getBaseUrl';
 import { getDeviceMetadata } from './getDeviceMetadata';
 import { getSessionId } from './getSessionId';
-
-const getBaseUrl = (): string =>
-  import.meta.env.VITE_API_URL ?? 'http://localhost:8080';
 
 export type TrackEventPayload = {
   type: 'click' | 'pageview';
