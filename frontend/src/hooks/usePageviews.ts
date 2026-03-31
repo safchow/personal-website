@@ -11,6 +11,8 @@ interface Pageviews {
 export function usePageviews(path: string) {
   return useQuery({
     queryKey: ['pageviews', path],
+    staleTime: 0,
+    refetchOnMount: 'always',
     queryFn: async (): Promise<Pageviews> => {
       const url = new URL(`${getBaseUrl()}/api/events/pageviews`);
       url.searchParams.set('path', path);
