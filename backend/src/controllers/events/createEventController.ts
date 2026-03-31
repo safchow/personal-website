@@ -13,7 +13,7 @@ export const createEventSchema = z.object({
 export async function createEventController(
   req: Request,
   res: Response,
-  next: NextFunction
+  next: NextFunction,
 ) {
   try {
     const body = req.body as z.infer<typeof createEventSchema>;
@@ -26,6 +26,7 @@ export async function createEventController(
         metadata: body.metadata,
       },
     });
+
     res.status(201).json({ data: { event } });
   } catch (error) {
     next(error);
