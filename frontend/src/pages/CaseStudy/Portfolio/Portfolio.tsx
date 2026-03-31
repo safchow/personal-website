@@ -18,11 +18,11 @@ import { getSessionId } from '@/lib/analytics/getSessionId';
 
 import { CaseStudyMetricCard, PayloadCard } from './components';
 
-const PERSONAL_WEBSITE_REPO_URL = 'https://github.com/safchow/personal-website';
-const WEBSITE_CASE_STUDY_PATH = '/case-studies/website';
-const WEBSITE_CASE_STUDY_DEMO_TARGET = 'case-study-demo';
+const PERSONAL_PORTFOLIO_REPO_URL = 'https://github.com/safchow/personal-website';
+const PORTFOLIO_CASE_STUDY_PATH = '/case-studies/portfolio';
+const PORTFOLIO_CASE_STUDY_DEMO_TARGET = 'case-study-demo';
 
-export const WebsiteCaseStudy: React.FC = () => {
+export const PortfolioCaseStudy: React.FC = () => {
   const sessionId = React.useMemo(() => getSessionId(), []);
   const [lastDemoEvent, setLastDemoEvent] = React.useState<{
     path: string;
@@ -37,15 +37,15 @@ export const WebsiteCaseStudy: React.FC = () => {
     data: pageviewStats,
     error: pageviewStatsError,
     isLoading: isLoadingPageviewStats,
-  } = usePageviews(WEBSITE_CASE_STUDY_PATH);
+  } = usePageviews(PORTFOLIO_CASE_STUDY_PATH);
   const {
     data: clickStats,
     error: clickStatsError,
     isLoading: isLoadingClickStats,
     refetch: refetchClickStats,
   } = useClicks({
-    path: WEBSITE_CASE_STUDY_PATH,
-    target: WEBSITE_CASE_STUDY_DEMO_TARGET,
+    path: PORTFOLIO_CASE_STUDY_PATH,
+    target: PORTFOLIO_CASE_STUDY_DEMO_TARGET,
   });
   const { isPending: isEmittingDemoEvent, mutateAsync: emitDemoEvent } =
     useTrackEvent();
@@ -58,14 +58,14 @@ export const WebsiteCaseStudy: React.FC = () => {
     try {
       await emitDemoEvent({
         type: 'click',
-        target: WEBSITE_CASE_STUDY_DEMO_TARGET,
-        path: WEBSITE_CASE_STUDY_PATH,
+        target: PORTFOLIO_CASE_STUDY_DEMO_TARGET,
+        path: PORTFOLIO_CASE_STUDY_PATH,
       });
 
       setLastDemoEvent({
-        path: WEBSITE_CASE_STUDY_PATH,
+        path: PORTFOLIO_CASE_STUDY_PATH,
         sessionId,
-        target: WEBSITE_CASE_STUDY_DEMO_TARGET,
+        target: PORTFOLIO_CASE_STUDY_DEMO_TARGET,
         timestamp,
         type: 'click',
       });
@@ -87,8 +87,8 @@ export const WebsiteCaseStudy: React.FC = () => {
 
   const payloadPreview = lastDemoEvent ?? {
     type: 'click' as const,
-    target: WEBSITE_CASE_STUDY_DEMO_TARGET,
-    path: WEBSITE_CASE_STUDY_PATH,
+    target: PORTFOLIO_CASE_STUDY_DEMO_TARGET,
+    path: PORTFOLIO_CASE_STUDY_PATH,
     sessionId,
     timestamp: 'waiting-for-event',
   };
@@ -111,7 +111,7 @@ export const WebsiteCaseStudy: React.FC = () => {
     <CaseStudyLayout>
       <CaseStudyHero
         gradientClass="menu-2-gradient"
-        eyebrow="Website"
+        eyebrow="Portfolio"
         title="Understanding User Behavior"
       />
 
@@ -121,7 +121,7 @@ export const WebsiteCaseStudy: React.FC = () => {
           className="text-lg leading-relaxed text-foreground/72"
         >
           A case study in using lightweight eventing to understand how visitors
-          move through this site.
+          move through this portfolio.
         </Typography>
         <Typography as="p" className="text-base leading-8 text-foreground/80">
           The goal was not to build a heavy analytics product. It was to create
@@ -257,7 +257,7 @@ export const WebsiteCaseStudy: React.FC = () => {
         <div className="pt-2">
           <Button asChild variant="secondary">
             <a
-              href={PERSONAL_WEBSITE_REPO_URL}
+              href={PERSONAL_PORTFOLIO_REPO_URL}
               target="_blank"
               rel="noreferrer"
             >
@@ -274,8 +274,8 @@ export const WebsiteCaseStudy: React.FC = () => {
         </Typography>
         <Typography as="p" className="text-base leading-8 text-foreground/78">
           The result is a small but practical analytics layer that makes this
-          site more measurable. It surfaces which paths are being visited, which
-          calls to action draw attention, and how people move through the
+          portfolio more measurable. It surfaces which paths are being visited,
+          which calls to action draw attention, and how people move through the
           experience without requiring a large external analytics setup.
         </Typography>
         <Typography as="p" className="text-base leading-8 text-foreground/78">
@@ -295,8 +295,8 @@ export const WebsiteCaseStudy: React.FC = () => {
           <Typography as="p" className="text-base leading-8 text-foreground/76">
             The interesting part of this case study was not the volume of data.
             It was choosing the smallest eventing system that still made the
-            site easier to evaluate, iterate on, and understand from a product
-            perspective.
+            portfolio easier to evaluate, iterate on, and understand from a
+            product perspective.
           </Typography>
         </CardContent>
       </Card>

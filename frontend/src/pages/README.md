@@ -1,4 +1,4 @@
-# Website Frontend Pages
+# Portfolio Frontend Pages
 
 This directory contains page components and route definitions.
 
