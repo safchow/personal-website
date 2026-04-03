@@ -18,7 +18,7 @@ export const Home: React.FC = () => {
 
 export const HomeContent: React.FC = () => {
   return (
-    <div className="flex flex-col items-center text-center justify-center w-full lg:w-1/2 pt-12 lg:pt-0">
+    <div className="flex flex-col justify-center w-full lg:w-1/2 pt-12 lg:pt-0">
       <Typography className="text-2xl sm:text-3xl md:text-4xl font-medium mb-6 sm:mb-8">
         Building systems that last.
       </Typography>
