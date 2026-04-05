@@ -23,8 +23,8 @@ export const Header: React.FC = () => {
         className="flex flex-row items-center gap-4 rounded-md transition-opacity hover:opacity-80 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring/50"
         aria-label="Go to homepage"
       >
-        <StoneIcon className="size-6 shrink-0" />
-        <Typography className="text-lg font-normal">
+        <StoneIcon className="size-5 shrink-0" />
+        <Typography className="text-md sm:text-lg font-normal">
           Safwaan Chowdhury
         </Typography>
       </Link>
