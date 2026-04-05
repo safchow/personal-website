@@ -30,10 +30,6 @@ export const Header: React.FC = () => {
       </Link>
 
       <div className="flex flex-row gap-2 sm:gap-4">
-        {/* <Button variant="ghost">
-          <Typography className="text-base font-light">About</Typography>
-        </Button> */}
-
         {!isMobile && (
           <>
             <ResumeButton />
