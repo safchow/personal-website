@@ -36,7 +36,6 @@ export const Header: React.FC = () => {
 
         {!isMobile && (
           <>
-            <EmailButton />
             <ResumeButton />
             <GitHubButton />
             <LinkedInButton />
