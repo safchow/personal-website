@@ -6,12 +6,12 @@ import { Typography } from '@/common/Typography';
 import { useIsMobile } from '@/hooks';
 
 import {
-  EmailButton,
   GitHubButton,
   LinkedInButton,
   ResumeButton,
   ThemeToggleButton,
 } from './Buttons';
+import { MobileMenuDrawer } from './MobileMenuDrawer';
 
 export const Header: React.FC = () => {
   const isMobile = useIsMobile();
@@ -29,7 +29,7 @@ export const Header: React.FC = () => {
         </Typography>
       </Link>
 
-      <div className="flex flex-row gap-4">
+      <div className="flex flex-row gap-2 sm:gap-4">
         {/* <Button variant="ghost">
           <Typography className="text-base font-light">About</Typography>
         </Button> */}
@@ -43,6 +43,8 @@ export const Header: React.FC = () => {
         )}
 
         <ThemeToggleButton />
+
+        {isMobile && <MobileMenuDrawer />}
       </div>
     </div>
   );
