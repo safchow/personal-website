@@ -5,5 +5,5 @@ interface PageContentProps {
 }
 
 export const PageContent: React.FC<PageContentProps> = ({ children }) => {
-  return <div className="flex flex-1 min-h-0 overflow-hidden">{children}</div>;
+  return <div className="flex min-h-0 w-full flex-1 flex-col">{children}</div>;
 };

@@ -17,7 +17,7 @@ export const Header: React.FC = () => {
   const isMobile = useIsMobile();
 
   return (
-    <div className="w-full h-fit flex flex-row justify-between">
+    <div className="flex h-fit w-full flex-row justify-between">
       <Link
         to="/"
         className="flex flex-row items-center gap-4 rounded-md transition-opacity hover:opacity-80 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring/50"
