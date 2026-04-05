@@ -43,18 +43,18 @@ export const MobileMenuDrawer: React.FC = () => {
         </Button>
       </DrawerTrigger>
 
-      <DrawerContent className="mx-auto max-w-xl rounded-t-[1.5rem]">
-        <DrawerHeader className="px-6 pb-2 text-left">
+      <DrawerContent className="px-2 pb-4">
+        <DrawerHeader className="text-left">
           <DrawerTitle>Links</DrawerTitle>
           <DrawerDescription>
             Quick ways to get in touch and browse my work.
           </DrawerDescription>
         </DrawerHeader>
 
-        <div className="flex flex-col gap-2 px-4 pb-6">
+        <div className="flex flex-col gap-2">
           <Button
             variant="ghost"
-            className="h-11 justify-start gap-3 rounded-xl px-4"
+            className="justify-start gap-3"
             onClick={handleResumeClick}
             aria-label="Open resume"
           >
@@ -64,7 +64,7 @@ export const MobileMenuDrawer: React.FC = () => {
 
           <Button
             variant="ghost"
-            className="h-11 justify-start gap-3 rounded-xl px-4"
+            className="justify-start gap-3"
             onClick={handleGitHubClick}
             aria-label="Open GitHub profile"
           >
@@ -74,7 +74,7 @@ export const MobileMenuDrawer: React.FC = () => {
 
           <Button
             variant="ghost"
-            className="h-11 justify-start gap-3 rounded-xl px-4"
+            className="justify-start gap-3"
             onClick={handleLinkedInClick}
             aria-label="Open LinkedIn profile"
           >
