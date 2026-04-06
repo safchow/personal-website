@@ -1,7 +1,7 @@
 import * as React from 'react';
 
 import { Typography } from '@/common/Typography';
-import { EMAIL, GITHUB_URL, LINKEDIN_URL } from '@/lib/constants';
+import { EMAIL, GITHUB_URL, LINKEDIN_URL, RESUME_URL } from '@/lib/constants';
 
 import { ExpandingMenu } from './components';
 
@@ -16,7 +16,7 @@ export const Home: React.FC = () => {
         </div>
 
         <div className="flex flex-col gap-4">
-          <Typography className="text-sm">
+          <Typography className="text-sm text-foreground/80">
             I build full-stack TypeScript products, from backend services to
             React interfaces. I&apos;m currently a Full-Stack Engineer at{' '}
             <a
@@ -30,7 +30,7 @@ export const Home: React.FC = () => {
             .
           </Typography>
 
-          <Typography className="text-sm">
+          <Typography className="text-sm text-foreground/80">
             These case studies highlight a few parts of my work. You can explore
             more on{' '}
             <a
@@ -40,6 +40,15 @@ export const Home: React.FC = () => {
               className="link-inline"
             >
               GitHub
+            </a>{' '}
+            or view my{' '}
+            <a
+              href={RESUME_URL}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="link-inline"
+            >
+              resume
             </a>
             .
           </Typography>
@@ -48,7 +57,7 @@ export const Home: React.FC = () => {
             <ExpandingMenu />
           </div>
 
-          <Typography className="text-sm">
+          <Typography className="text-sm text-foreground/80">
             I like meeting people who care about building things well. You can{' '}
             <a href={`mailto:${EMAIL}`} className="link-inline">
               email me
