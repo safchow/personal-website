@@ -21,7 +21,7 @@ function RootLayout() {
         <Header />
       </div>
 
-      <div className="mx-auto flex w-full max-w-4xl flex-1 min-h-0">
+      <div className="mx-auto flex w-full max-w-5xl flex-1 min-h-0">
         <div
           key={pathname}
           className="flex flex-1 min-h-0 animate-fade-in opacity-0"
