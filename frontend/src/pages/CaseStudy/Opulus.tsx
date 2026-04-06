@@ -1,14 +1,14 @@
 import * as React from 'react';
 
-import { CaseStudyHero, CaseStudyLayout } from '@/common/CaseStudy';
+import { CaseStudyHero } from '@/common/CaseStudy';
 import { Typography } from '@/common/Typography';
 
 export const OpulusCaseStudy: React.FC = () => {
   return (
-    <CaseStudyLayout>
+    <article className="space-y-10 pb-10">
       <CaseStudyHero
-        gradientClass="menu-3-gradient"
         eyebrow="Opulus"
+        theme="projects"
         title="Syncing Financial Data"
       />
 
@@ -145,6 +145,6 @@ export const OpulusCaseStudy: React.FC = () => {
           operational boundaries.
         </Typography>
       </section>
-    </CaseStudyLayout>
+    </article>
   );
 };

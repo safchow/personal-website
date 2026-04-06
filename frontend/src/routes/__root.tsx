@@ -21,11 +21,13 @@ function RootLayout() {
         <Header />
       </div>
 
-      <div
-        key={pathname}
-        className="flex flex-1 min-h-0 animate-fade-in opacity-0"
-      >
-        <Outlet />
+      <div className="mx-auto flex w-full max-w-4xl flex-1 min-h-0">
+        <div
+          key={pathname}
+          className="flex flex-1 min-h-0 animate-fade-in opacity-0"
+        >
+          <Outlet />
+        </div>
       </div>
 
       <div className="animate-fade-in opacity-0 [animation-delay:200ms]">

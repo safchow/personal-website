@@ -1,14 +1,14 @@
 import * as React from 'react';
 
-import { CaseStudyHero, CaseStudyLayout } from '@/common/CaseStudy';
+import { CaseStudyHero } from '@/common/CaseStudy';
 import { Typography } from '@/common/Typography';
 
 export const ArchitectureCaseStudy: React.FC = () => {
   return (
-    <CaseStudyLayout>
+    <article className="space-y-10 pb-10">
       <CaseStudyHero
-        gradientClass="menu-3-gradient"
         eyebrow="Frontend"
+        theme="skills"
         title="Architecting Frontend Systems"
       />
 
@@ -155,6 +155,6 @@ export const ArchitectureCaseStudy: React.FC = () => {
           focused on product behavior.
         </Typography>
       </section>
-    </CaseStudyLayout>
+    </article>
   );
 };

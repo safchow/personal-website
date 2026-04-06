@@ -2,7 +2,7 @@ import { faGithub } from '@fortawesome/free-brands-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import * as React from 'react';
 
-import { CaseStudyHero, CaseStudyLayout } from '@/common/CaseStudy';
+import { CaseStudyHero } from '@/common/CaseStudy';
 import { Typography } from '@/common/Typography';
 import { Button } from '@/components/ui/button';
 import {
@@ -108,10 +108,10 @@ export const PortfolioCaseStudy: React.FC = () => {
   ];
 
   return (
-    <CaseStudyLayout>
+    <article className="space-y-10 pb-10">
       <CaseStudyHero
-        gradientClass="menu-2-gradient"
         eyebrow="Portfolio"
+        theme="experience"
         title="Understanding User Behavior"
       />
 
@@ -288,6 +288,6 @@ export const PortfolioCaseStudy: React.FC = () => {
           </Button>
         </div>
       </div>
-    </CaseStudyLayout>
+    </article>
   );
 };
