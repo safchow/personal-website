@@ -1,21 +1,11 @@
 import { Link } from '@tanstack/react-router';
-import { StoneIcon } from 'lucide-react';
 import * as React from 'react';
 
 import { Typography } from '@/common/Typography';
-import { useIsMobile } from '@/hooks';
 
-import {
-  GitHubButton,
-  LinkedInButton,
-  ResumeButton,
-  ThemeToggleButton,
-} from './Buttons';
-import { MobileMenuDrawer } from './MobileMenuDrawer';
+import { ResumeButton, ThemeToggleButton } from './Buttons';
 
 export const Header: React.FC = () => {
-  const isMobile = useIsMobile();
-
   return (
     <div className="flex h-fit w-full flex-row justify-between">
       <Link
@@ -23,24 +13,12 @@ export const Header: React.FC = () => {
         className="flex flex-row items-center gap-4 rounded-md transition-opacity hover:opacity-80 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring/50"
         aria-label="Go to homepage"
       >
-        <StoneIcon className="size-5 shrink-0" />
-        <Typography className="text-md sm:text-lg font-normal">
-          Safwaan Chowdhury
-        </Typography>
+        <Typography className="text-sm sm:text-md font-normal">Home</Typography>
       </Link>
 
       <div className="flex flex-row gap-2 sm:gap-4">
-        {!isMobile && (
-          <>
-            <ResumeButton />
-            <GitHubButton />
-            <LinkedInButton />
-          </>
-        )}
-
+        <ResumeButton />
         <ThemeToggleButton />
-
-        {isMobile && <MobileMenuDrawer />}
       </div>
     </div>
   );
