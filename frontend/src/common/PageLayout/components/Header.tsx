@@ -14,9 +14,7 @@ export const Header: React.FC = () => {
           className="transition-opacity hover:opacity-80"
           aria-label="Go to homepage"
         >
-          <Typography className="text-sm sm:text-md font-normal">
-            Home
-          </Typography>
+          <Typography className="text-sm font-normal">Home</Typography>
         </Link>
       </div>
 
