@@ -164,6 +164,15 @@ a.link-inline:hover {
 }
 
 @layer base {
+  html,
+  body {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+  html::-webkit-scrollbar,
+  body::-webkit-scrollbar {
+    display: none;
+  }
   * {
     @apply border-border outline-ring/50;
     transition:
