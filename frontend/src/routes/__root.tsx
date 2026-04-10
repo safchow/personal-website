@@ -17,21 +17,21 @@ function RootLayout() {
 
   return (
     <div className="flex min-h-[100dvh] flex-col gap-6 bg-background px-8 py-6 md:gap-8 md:py-8 lg:px-16">
-      <div className="animate-fade-in [animation-delay:0ms]">
-        <Header />
-      </div>
+      <div className="mx-auto flex flex-1 flex-col w-full max-w-5xl gap-8">
+        <div className="animate-fade-in [animation-delay:0ms]">
+          <Header />
+        </div>
 
-      <div className="mx-auto flex w-full max-w-5xl flex-1 min-h-0">
         <div
           key={pathname}
           className="flex flex-1 min-h-0 animate-fade-in opacity-0"
         >
           <Outlet />
         </div>
-      </div>
 
-      <div className="animate-fade-in opacity-0 [animation-delay:200ms]">
-        <Footer />
+        <div className="animate-fade-in opacity-0 [animation-delay:200ms]">
+          <Footer />
+        </div>
       </div>
     </div>
   );
