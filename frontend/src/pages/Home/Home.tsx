@@ -8,8 +8,8 @@ import { ExpandingMenu } from './components';
 export const Home: React.FC = () => {
   return (
     <div className="flex flex-1 min-h-0 overflow-hidden">
-      <div className="flex w-full flex-col justify-center pt-12 lg:pt-0">
-        <div className="mb-6 flex items-center gap-4 sm:mb-8">
+      <div className="flex w-full flex-col justify-center">
+        <div className="flex items-center gap-4 mb-6 sm:mb-8">
           <Typography className="text-2xl font-medium">
             Hey, I&apos;m Safwaan!
           </Typography>
