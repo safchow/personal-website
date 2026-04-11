@@ -110,8 +110,8 @@ export const PortfolioCaseStudy: React.FC = () => {
   return (
     <article className="space-y-10 pb-10">
       <CaseStudyHero
+        gradientClass="menu-2-gradient"
         eyebrow="Portfolio"
-        theme="experience"
         title="Understanding User Behavior"
       />
 

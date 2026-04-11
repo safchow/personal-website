@@ -7,8 +7,8 @@ export const ArchitectureCaseStudy: React.FC = () => {
   return (
     <article className="space-y-10 pb-10">
       <CaseStudyHero
+        gradientClass="menu-3-gradient"
         eyebrow="Frontend"
-        theme="skills"
         title="Architecting Frontend Systems"
       />
 

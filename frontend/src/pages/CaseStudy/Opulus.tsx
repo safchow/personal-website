@@ -7,8 +7,8 @@ export const OpulusCaseStudy: React.FC = () => {
   return (
     <article className="space-y-10 pb-10">
       <CaseStudyHero
+        gradientClass="menu-3-gradient"
         eyebrow="Opulus"
-        theme="projects"
         title="Syncing Financial Data"
       />
 
