@@ -53,7 +53,7 @@ export const Home: React.FC = () => {
             .
           </Typography>
 
-          <div className="flex h-[24rem] py-4 sm:h-[28rem]">
+          <div className="py-4">
             <ExpandingMenu />
           </div>
 
