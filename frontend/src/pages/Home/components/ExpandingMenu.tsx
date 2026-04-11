@@ -140,10 +140,16 @@ const MenuItem: React.FC<MenuItemProps> = ({ item, isActive, onClick }) => {
       tabIndex={0}
     >
       <div className="w-[20rem] max-w-full">
-        <Typography className="text-[hsl(var(--menu-copy-title))] text-lg font-semibold tracking-tight sm:text-xl">
+        <Typography
+          as="p"
+          className="text-[hsl(var(--menu-copy-title))] text-lg font-semibold tracking-tight sm:text-xl"
+        >
           {item.title}
         </Typography>
-        <Typography className="mt-2 text-[hsl(var(--menu-copy-description))] text-sm leading-relaxed">
+        <Typography
+          as="p"
+          className="mt-2 text-[hsl(var(--menu-copy-description))] text-sm leading-relaxed"
+        >
           {item.description}
         </Typography>
       </div>

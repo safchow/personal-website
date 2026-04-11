@@ -16,7 +16,7 @@ export const Home: React.FC = () => {
         </div>
 
         <div className="flex flex-col gap-4">
-          <Typography className="text-base text-foreground/80">
+          <Typography className="text-sm text-foreground/80 sm:text-base">
             I build full-stack TypeScript products, from backend services to
             React interfaces. I&apos;m currently a Full-Stack Engineer at{' '}
             <a
@@ -30,7 +30,7 @@ export const Home: React.FC = () => {
             .
           </Typography>
 
-          <Typography className="text-base text-foreground/80">
+          <Typography className="text-sm text-foreground/80 sm:text-base">
             These case studies highlight a few parts of my work. You can explore
             more on{' '}
             <a
@@ -57,7 +57,7 @@ export const Home: React.FC = () => {
             <ExpandingMenu />
           </div>
 
-          <Typography className="text-base text-foreground/80">
+          <Typography className="text-sm text-foreground/80 sm:text-base">
             I like meeting people who care about building things well. You can{' '}
             <a href={`mailto:${EMAIL}`} className="link-inline">
               email me
