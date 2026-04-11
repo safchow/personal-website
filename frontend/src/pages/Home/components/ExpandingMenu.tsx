@@ -90,7 +90,7 @@ interface MenuItemProps {
 const MenuItem: React.FC<MenuItemProps> = ({ item, onClick }) => {
   return (
     <Card
-      className="flex min-h-[16rem] cursor-pointer flex-col rounded-2xl border-border/60 bg-card shadow-none transition-colors duration-200 hover:border-border/85 sm:min-h-[18rem]"
+      className="flex min-h-[12rem] cursor-pointer flex-col rounded-2xl border-border/60 bg-card shadow-none transition-colors duration-200 hover:border-border/85 sm:min-h-[18rem]"
       onClick={onClick}
       onKeyDown={(event) => {
         if (event.key === 'Enter' || event.key === ' ') {
