@@ -11,9 +11,6 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as SplatRouteImport } from './routes/$'
 import { Route as IndexRouteImport } from './routes/index'
-import { Route as CaseStudiesPortfolioRouteImport } from './routes/case-studies.portfolio'
-import { Route as CaseStudiesOpulusRouteImport } from './routes/case-studies.opulus'
-import { Route as CaseStudiesArchitectureRouteImport } from './routes/case-studies.architecture'
 
 const SplatRoute = SplatRouteImport.update({
   id: '/$',
@@ -25,74 +22,31 @@ const IndexRoute = IndexRouteImport.update({
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
-const CaseStudiesPortfolioRoute = CaseStudiesPortfolioRouteImport.update({
-  id: '/case-studies/portfolio',
-  path: '/case-studies/portfolio',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const CaseStudiesOpulusRoute = CaseStudiesOpulusRouteImport.update({
-  id: '/case-studies/opulus',
-  path: '/case-studies/opulus',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const CaseStudiesArchitectureRoute = CaseStudiesArchitectureRouteImport.update({
-  id: '/case-studies/architecture',
-  path: '/case-studies/architecture',
-  getParentRoute: () => rootRouteImport,
-} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/$': typeof SplatRoute
-  '/case-studies/architecture': typeof CaseStudiesArchitectureRoute
-  '/case-studies/opulus': typeof CaseStudiesOpulusRoute
-  '/case-studies/portfolio': typeof CaseStudiesPortfolioRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/$': typeof SplatRoute
-  '/case-studies/architecture': typeof CaseStudiesArchitectureRoute
-  '/case-studies/opulus': typeof CaseStudiesOpulusRoute
-  '/case-studies/portfolio': typeof CaseStudiesPortfolioRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/$': typeof SplatRoute
-  '/case-studies/architecture': typeof CaseStudiesArchitectureRoute
-  '/case-studies/opulus': typeof CaseStudiesOpulusRoute
-  '/case-studies/portfolio': typeof CaseStudiesPortfolioRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths:
-    | '/'
-    | '/$'
-    | '/case-studies/architecture'
-    | '/case-studies/opulus'
-    | '/case-studies/portfolio'
+  fullPaths: '/' | '/$'
   fileRoutesByTo: FileRoutesByTo
-  to:
-    | '/'
-    | '/$'
-    | '/case-studies/architecture'
-    | '/case-studies/opulus'
-    | '/case-studies/portfolio'
-  id:
-    | '__root__'
-    | '/'
-    | '/$'
-    | '/case-studies/architecture'
-    | '/case-studies/opulus'
-    | '/case-studies/portfolio'
+  to: '/' | '/$'
+  id: '__root__' | '/' | '/$'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   SplatRoute: typeof SplatRoute
-  CaseStudiesArchitectureRoute: typeof CaseStudiesArchitectureRoute
-  CaseStudiesOpulusRoute: typeof CaseStudiesOpulusRoute
-  CaseStudiesPortfolioRoute: typeof CaseStudiesPortfolioRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -111,36 +65,12 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/case-studies/portfolio': {
-      id: '/case-studies/portfolio'
-      path: '/case-studies/portfolio'
-      fullPath: '/case-studies/portfolio'
-      preLoaderRoute: typeof CaseStudiesPortfolioRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/case-studies/opulus': {
-      id: '/case-studies/opulus'
-      path: '/case-studies/opulus'
-      fullPath: '/case-studies/opulus'
-      preLoaderRoute: typeof CaseStudiesOpulusRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/case-studies/architecture': {
-      id: '/case-studies/architecture'
-      path: '/case-studies/architecture'
-      fullPath: '/case-studies/architecture'
-      preLoaderRoute: typeof CaseStudiesArchitectureRouteImport
-      parentRoute: typeof rootRouteImport
-    }
   }
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   SplatRoute: SplatRoute,
-  CaseStudiesArchitectureRoute: CaseStudiesArchitectureRoute,
-  CaseStudiesOpulusRoute: CaseStudiesOpulusRoute,
-  CaseStudiesPortfolioRoute: CaseStudiesPortfolioRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

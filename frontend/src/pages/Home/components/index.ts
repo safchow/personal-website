@@ -1,1 +1,1 @@
-export { ExpandingMenu } from './ExpandingMenu';
+export { SelectedWork } from './SelectedWork';
