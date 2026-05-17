@@ -1,12 +1,7 @@
 import * as React from 'react';
 
 import { Typography } from '@/common/Typography';
-import {
-  Card,
-  CardContent,
-  CardHeader,
-  CardTitle,
-} from '@/components/ui/ui/card';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { README_PROJECTS, type ReadmeProject } from '@/pages/Home/constants';
 
 const ReadmeProjectCard: React.FC<{ project: ReadmeProject }> = ({

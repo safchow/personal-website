@@ -4,7 +4,6 @@ import {
   useRouterState,
 } from '@tanstack/react-router';
 
-import { Footer } from '@/common/PageLayout/components';
 import { ThemeShortcut } from '@/common/ThemeShortcut';
 
 export const Route = createRootRoute({
@@ -24,10 +23,6 @@ function RootLayout() {
           className="flex flex-1 min-h-0 animate-fade-in opacity-0"
         >
           <Outlet />
-        </div>
-
-        <div className="animate-fade-in opacity-0 [animation-delay:200ms]">
-          <Footer />
         </div>
       </div>
 
