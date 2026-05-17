@@ -1,9 +1,9 @@
 import * as React from 'react';
 
 import { Typography } from '@/common/Typography';
-import { EMAIL, LINKEDIN_URL } from '@/lib/constants';
+import { EMAIL } from '@/lib/constants';
 
-import { ExpandingMenu } from './components';
+import { SelectedWork } from './components';
 
 export const Home: React.FC = () => {
   return (
@@ -18,34 +18,17 @@ export const Home: React.FC = () => {
           </div>
 
           {/* Body */}
-          <Typography className="text-base text-foreground/80">
-            I&apos;m currently a Full-Stack Engineer at{' '}
-            <a
-              href="https://relayfi.com/"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="link-inline"
-            >
-              Relay Financial
-            </a>
-            . These case studies highlight my work.
+          <Typography as="p" className="text-base leading-7 text-foreground/80">
+            I&apos;m a Full-Stack Engineer. Here are some of my projects.
           </Typography>
 
-          <ExpandingMenu />
+          <SelectedWork />
 
-          <Typography className="text-base text-foreground/80">
-            I like meeting people who care about building things well. You can{' '}
+          <Typography as="p" className="text-base leading-7 text-foreground/80">
+            I like meeting people who care about building things well. You can
+            reach me by{' '}
             <a href={`mailto:${EMAIL}`} className="link-inline">
-              email me
-            </a>{' '}
-            or find me on{' '}
-            <a
-              href={LINKEDIN_URL}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="link-inline"
-            >
-              LinkedIn
+              email
             </a>
             .
           </Typography>
