@@ -9,9 +9,20 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as ThemeToggleVariantsRouteImport } from './routes/theme-toggle-variants'
 import { Route as SplatRouteImport } from './routes/$'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as ThemeToggleVariantsIndexRouteImport } from './routes/theme-toggle-variants.index'
+import { Route as ThemeToggleVariantsSystemAutoRouteImport } from './routes/theme-toggle-variants.system-auto'
+import { Route as ThemeToggleVariantsKeyboardShortcutRouteImport } from './routes/theme-toggle-variants.keyboard-shortcut'
+import { Route as ThemeToggleVariantsInlineContactRouteImport } from './routes/theme-toggle-variants.inline-contact'
+import { Route as ThemeToggleVariantsFloatingPillRouteImport } from './routes/theme-toggle-variants.floating-pill'
 
+const ThemeToggleVariantsRoute = ThemeToggleVariantsRouteImport.update({
+  id: '/theme-toggle-variants',
+  path: '/theme-toggle-variants',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const SplatRoute = SplatRouteImport.update({
   id: '/$',
   path: '/$',
@@ -22,35 +33,114 @@ const IndexRoute = IndexRouteImport.update({
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ThemeToggleVariantsIndexRoute =
+  ThemeToggleVariantsIndexRouteImport.update({
+    id: '/',
+    path: '/',
+    getParentRoute: () => ThemeToggleVariantsRoute,
+  } as any)
+const ThemeToggleVariantsSystemAutoRoute =
+  ThemeToggleVariantsSystemAutoRouteImport.update({
+    id: '/system-auto',
+    path: '/system-auto',
+    getParentRoute: () => ThemeToggleVariantsRoute,
+  } as any)
+const ThemeToggleVariantsKeyboardShortcutRoute =
+  ThemeToggleVariantsKeyboardShortcutRouteImport.update({
+    id: '/keyboard-shortcut',
+    path: '/keyboard-shortcut',
+    getParentRoute: () => ThemeToggleVariantsRoute,
+  } as any)
+const ThemeToggleVariantsInlineContactRoute =
+  ThemeToggleVariantsInlineContactRouteImport.update({
+    id: '/inline-contact',
+    path: '/inline-contact',
+    getParentRoute: () => ThemeToggleVariantsRoute,
+  } as any)
+const ThemeToggleVariantsFloatingPillRoute =
+  ThemeToggleVariantsFloatingPillRouteImport.update({
+    id: '/floating-pill',
+    path: '/floating-pill',
+    getParentRoute: () => ThemeToggleVariantsRoute,
+  } as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/$': typeof SplatRoute
+  '/theme-toggle-variants': typeof ThemeToggleVariantsRouteWithChildren
+  '/theme-toggle-variants/floating-pill': typeof ThemeToggleVariantsFloatingPillRoute
+  '/theme-toggle-variants/inline-contact': typeof ThemeToggleVariantsInlineContactRoute
+  '/theme-toggle-variants/keyboard-shortcut': typeof ThemeToggleVariantsKeyboardShortcutRoute
+  '/theme-toggle-variants/system-auto': typeof ThemeToggleVariantsSystemAutoRoute
+  '/theme-toggle-variants/': typeof ThemeToggleVariantsIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/$': typeof SplatRoute
+  '/theme-toggle-variants/floating-pill': typeof ThemeToggleVariantsFloatingPillRoute
+  '/theme-toggle-variants/inline-contact': typeof ThemeToggleVariantsInlineContactRoute
+  '/theme-toggle-variants/keyboard-shortcut': typeof ThemeToggleVariantsKeyboardShortcutRoute
+  '/theme-toggle-variants/system-auto': typeof ThemeToggleVariantsSystemAutoRoute
+  '/theme-toggle-variants': typeof ThemeToggleVariantsIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/$': typeof SplatRoute
+  '/theme-toggle-variants': typeof ThemeToggleVariantsRouteWithChildren
+  '/theme-toggle-variants/floating-pill': typeof ThemeToggleVariantsFloatingPillRoute
+  '/theme-toggle-variants/inline-contact': typeof ThemeToggleVariantsInlineContactRoute
+  '/theme-toggle-variants/keyboard-shortcut': typeof ThemeToggleVariantsKeyboardShortcutRoute
+  '/theme-toggle-variants/system-auto': typeof ThemeToggleVariantsSystemAutoRoute
+  '/theme-toggle-variants/': typeof ThemeToggleVariantsIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/$'
+  fullPaths:
+    | '/'
+    | '/$'
+    | '/theme-toggle-variants'
+    | '/theme-toggle-variants/floating-pill'
+    | '/theme-toggle-variants/inline-contact'
+    | '/theme-toggle-variants/keyboard-shortcut'
+    | '/theme-toggle-variants/system-auto'
+    | '/theme-toggle-variants/'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/$'
-  id: '__root__' | '/' | '/$'
+  to:
+    | '/'
+    | '/$'
+    | '/theme-toggle-variants/floating-pill'
+    | '/theme-toggle-variants/inline-contact'
+    | '/theme-toggle-variants/keyboard-shortcut'
+    | '/theme-toggle-variants/system-auto'
+    | '/theme-toggle-variants'
+  id:
+    | '__root__'
+    | '/'
+    | '/$'
+    | '/theme-toggle-variants'
+    | '/theme-toggle-variants/floating-pill'
+    | '/theme-toggle-variants/inline-contact'
+    | '/theme-toggle-variants/keyboard-shortcut'
+    | '/theme-toggle-variants/system-auto'
+    | '/theme-toggle-variants/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   SplatRoute: typeof SplatRoute
+  ThemeToggleVariantsRoute: typeof ThemeToggleVariantsRouteWithChildren
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/theme-toggle-variants': {
+      id: '/theme-toggle-variants'
+      path: '/theme-toggle-variants'
+      fullPath: '/theme-toggle-variants'
+      preLoaderRoute: typeof ThemeToggleVariantsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/$': {
       id: '/$'
       path: '/$'
@@ -65,12 +155,68 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/theme-toggle-variants/': {
+      id: '/theme-toggle-variants/'
+      path: '/'
+      fullPath: '/theme-toggle-variants/'
+      preLoaderRoute: typeof ThemeToggleVariantsIndexRouteImport
+      parentRoute: typeof ThemeToggleVariantsRoute
+    }
+    '/theme-toggle-variants/system-auto': {
+      id: '/theme-toggle-variants/system-auto'
+      path: '/system-auto'
+      fullPath: '/theme-toggle-variants/system-auto'
+      preLoaderRoute: typeof ThemeToggleVariantsSystemAutoRouteImport
+      parentRoute: typeof ThemeToggleVariantsRoute
+    }
+    '/theme-toggle-variants/keyboard-shortcut': {
+      id: '/theme-toggle-variants/keyboard-shortcut'
+      path: '/keyboard-shortcut'
+      fullPath: '/theme-toggle-variants/keyboard-shortcut'
+      preLoaderRoute: typeof ThemeToggleVariantsKeyboardShortcutRouteImport
+      parentRoute: typeof ThemeToggleVariantsRoute
+    }
+    '/theme-toggle-variants/inline-contact': {
+      id: '/theme-toggle-variants/inline-contact'
+      path: '/inline-contact'
+      fullPath: '/theme-toggle-variants/inline-contact'
+      preLoaderRoute: typeof ThemeToggleVariantsInlineContactRouteImport
+      parentRoute: typeof ThemeToggleVariantsRoute
+    }
+    '/theme-toggle-variants/floating-pill': {
+      id: '/theme-toggle-variants/floating-pill'
+      path: '/floating-pill'
+      fullPath: '/theme-toggle-variants/floating-pill'
+      preLoaderRoute: typeof ThemeToggleVariantsFloatingPillRouteImport
+      parentRoute: typeof ThemeToggleVariantsRoute
+    }
   }
 }
+
+interface ThemeToggleVariantsRouteChildren {
+  ThemeToggleVariantsFloatingPillRoute: typeof ThemeToggleVariantsFloatingPillRoute
+  ThemeToggleVariantsInlineContactRoute: typeof ThemeToggleVariantsInlineContactRoute
+  ThemeToggleVariantsKeyboardShortcutRoute: typeof ThemeToggleVariantsKeyboardShortcutRoute
+  ThemeToggleVariantsSystemAutoRoute: typeof ThemeToggleVariantsSystemAutoRoute
+  ThemeToggleVariantsIndexRoute: typeof ThemeToggleVariantsIndexRoute
+}
+
+const ThemeToggleVariantsRouteChildren: ThemeToggleVariantsRouteChildren = {
+  ThemeToggleVariantsFloatingPillRoute: ThemeToggleVariantsFloatingPillRoute,
+  ThemeToggleVariantsInlineContactRoute: ThemeToggleVariantsInlineContactRoute,
+  ThemeToggleVariantsKeyboardShortcutRoute:
+    ThemeToggleVariantsKeyboardShortcutRoute,
+  ThemeToggleVariantsSystemAutoRoute: ThemeToggleVariantsSystemAutoRoute,
+  ThemeToggleVariantsIndexRoute: ThemeToggleVariantsIndexRoute,
+}
+
+const ThemeToggleVariantsRouteWithChildren =
+  ThemeToggleVariantsRoute._addFileChildren(ThemeToggleVariantsRouteChildren)
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   SplatRoute: SplatRoute,
+  ThemeToggleVariantsRoute: ThemeToggleVariantsRouteWithChildren,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
