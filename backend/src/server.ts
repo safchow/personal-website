@@ -33,12 +33,12 @@ app.use(
       cb(null, false);
     },
     methods: ["GET", "POST", "PUT", "DELETE", "PATCH", "OPTIONS"],
-    allowedHeaders: ["Content-Type", "Authorization"],
-  })
+    allowedHeaders: ["Content-Type", "Authorization", "x-admin-api-key"],
+  }),
 );
 app.use(requestIdMiddleware);
 app.use(requestLogger);
-app.use(json());
+app.use(json({ limit: "8kb" }));
 
 app.get("/health", (req, res) => {
   res.status(200).json({

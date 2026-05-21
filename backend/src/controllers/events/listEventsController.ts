@@ -1,5 +1,10 @@
 import { prisma } from "@website/core";
 import { NextFunction, Request, Response } from "express";
+import { z } from "zod";
+
+const listEventsQuerySchema = z.object({
+  limit: z.coerce.number().int().min(1).max(1000).default(100),
+});
 
 /**
  * GET /api/events - List events from MongoDB.
@@ -9,10 +14,10 @@ import { NextFunction, Request, Response } from "express";
 export async function listEventsController(
   req: Request,
   res: Response,
-  next: NextFunction
+  next: NextFunction,
 ) {
   try {
-    const limit = Math.min(parseInt(String(req.query.limit || "100"), 10), 1000);
+    const { limit } = listEventsQuerySchema.parse(req.query);
     const events = await prisma.event.findMany({
       orderBy: { timestamp: "desc" },
       take: limit,
