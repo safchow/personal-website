@@ -7,12 +7,8 @@ const getPageviewsQuerySchema = z.object({
 });
 
 type PageviewsAggregationResult = {
-  cursor?: {
-    firstBatch?: Array<{
-      pageviews?: Array<{ count: number }>;
-      uniqueSessions?: Array<{ count: number }>;
-    }>;
-  };
+  pageviews?: Array<{ count: number }>;
+  uniqueSessions?: Array<{ count: number }>;
 };
 
 /**
@@ -31,8 +27,7 @@ export async function getPageviewsController(
   try {
     const { path } = getPageviewsQuerySchema.parse(req.query);
 
-    const result = (await prisma.$runCommandRaw({
-      aggregate: "events",
+    const [metrics] = (await prisma.event.aggregateRaw({
       pipeline: [
         { $match: { path, type: "pageview" } },
         {
@@ -45,11 +40,8 @@ export async function getPageviewsController(
           },
         },
       ],
-      cursor: {},
-      allowDiskUse: true,
-    })) as PageviewsAggregationResult;
+    })) as PageviewsAggregationResult[];
 
-    const metrics = result.cursor?.firstBatch?.[0];
     const pageviews = metrics?.pageviews?.[0]?.count ?? 0;
     const uniqueSessions = metrics?.uniqueSessions?.[0]?.count ?? 0;
 
