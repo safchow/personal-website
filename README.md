@@ -68,10 +68,21 @@ pnpm --filter @website/backend dev
 5. Run `pnpm --filter @website/backend dev`
 
 **Endpoints:**
-- `POST /api/events` – Track events (body: `{ sessionId, type: "click"|"pageview", target?, path? }`)
+- `POST /api/events` – Track bounded analytics events from allowed website origins
+- `GET /api/events` – Admin-only event listing (`x-admin-api-key` or `?key=`)
+- `GET /api/events/pageviews` – Admin-only aggregate pageview metrics
+- `GET /api/events/clicks` – Admin-only aggregate click metrics
 - `GET /api/healthcheck` – Health check
+
+**Analytics safeguards:**
+
+- `ADMIN_API_KEY` is required in production for analytics read endpoints.
+- Analytics writes are rate-limited per IP and capped to small payloads.
+- Analytics reads are rate-limited and run aggregate counts inside MongoDB.
+- The backend ensures a TTL retention index at startup.
 
 **Deploy to Railway:**
 - Use the root `Dockerfile` (builds core + backend)
 - Set `DATABASE_URL` to your MongoDB Atlas (or Railway MongoDB) connection string
 - Set `CLIENT_URL` to your production frontend URL
+- Set `ADMIN_API_KEY` for analytics reads

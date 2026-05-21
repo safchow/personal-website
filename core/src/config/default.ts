@@ -20,6 +20,7 @@ const config = {
   clientUrl: getEnv("CLIENT_URL", "http://localhost:5173"),
   databaseUrl: getEnv("DATABASE_URL"),
   adminApiKey: getEnv("ADMIN_API_KEY"),
+  analyticsRetentionDays: getIntEnv("ANALYTICS_RETENTION_DAYS", 90),
   analyticsWriteLimitPerMinute: getIntEnv(
     "ANALYTICS_WRITE_LIMIT_PER_MINUTE",
     60
