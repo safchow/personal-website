@@ -1,4 +1,5 @@
 import { RouterProvider, createRouter } from '@tanstack/react-router';
+import { useEffect } from 'react';
 
 import { trackEvent } from '@/lib/analytics/trackEvent';
 
@@ -8,7 +9,6 @@ import { routeTree } from './routeTree.gen';
 // Create a new router instance
 const router = createRouter({ routeTree });
 
-// Track pageviews on navigation (module-level avoids React Strict Mode double-mount)
 let lastPath = '';
 const trackPageView = () => {
   const path = router.history.location.pathname;
@@ -16,8 +16,6 @@ const trackPageView = () => {
   lastPath = path;
   void trackEvent({ type: 'pageview', path });
 };
-trackPageView(); // Initial load
-router.history.subscribe(trackPageView); // Navigation
 
 // Register the router instance for type safety
 declare module '@tanstack/react-router' {
@@ -27,6 +25,11 @@ declare module '@tanstack/react-router' {
 }
 
 function App() {
+  useEffect(() => {
+    trackPageView();
+    return router.history.subscribe(trackPageView);
+  }, []);
+
   return <RouterProvider router={router} />;
 }
 
