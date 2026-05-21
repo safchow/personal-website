@@ -58,13 +58,30 @@ export async function ensureAnalyticsStorage() {
   const retentionSeconds = retentionDays * secondsPerDay;
 
   try {
+    await prisma.$runCommandRaw({
+      createIndexes: "events",
+      indexes: [
+        {
+          key: { path: 1, type: 1, sessionId: 1 },
+          name: "events_path_type_session_idx",
+        },
+        {
+          key: { path: 1, type: 1, target: 1 },
+          name: "events_path_type_target_idx",
+        },
+      ],
+    });
+
     await ensureRetentionIndex(retentionSeconds);
 
-    logger.info({ retentionDays }, "Analytics storage retention is ready");
+    logger.info(
+      { retentionDays },
+      "Analytics storage indexes and retention are ready",
+    );
   } catch (error) {
     logger.error(
       { err: error },
-      "Failed to ensure analytics storage retention",
+      "Failed to ensure analytics storage indexes and retention",
     );
   }
 }
