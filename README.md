@@ -27,13 +27,13 @@ The site will be available at `http://localhost:5173` (or the next available por
 
 ## Scripts
 
-| Command | Description |
-|---------|-------------|
-| `pnpm dev` | Start the workspace development servers |
-| `pnpm build` | Build all packages |
-| `pnpm lint` | Run ESLint across all packages |
-| `pnpm format` | Format code with Prettier |
-| `pnpm type-check` | Run TypeScript checks |
+| Command           | Description                             |
+| ----------------- | --------------------------------------- |
+| `pnpm dev`        | Start the workspace development servers |
+| `pnpm build`      | Build all packages                      |
+| `pnpm lint`       | Run ESLint across all packages          |
+| `pnpm format`     | Format code with Prettier               |
+| `pnpm type-check` | Run TypeScript checks                   |
 
 ## Project Structure
 
@@ -50,6 +50,7 @@ website/
 The backend provides an events API for anonymous analytics.
 
 **Local setup with Docker MongoDB:**
+
 ```bash
 # Start MongoDB
 docker compose up -d mongodb
@@ -61,6 +62,7 @@ pnpm --filter @website/backend dev
 ```
 
 **Manual setup:**
+
 1. Copy `backend/.env.example` to `backend/.env`
 2. Set `DATABASE_URL` (use `mongodb://localhost:27017/website` for local Docker)
 3. Set `CLIENT_URL` to your frontend URL (e.g. `http://localhost:5173`)
@@ -68,10 +70,23 @@ pnpm --filter @website/backend dev
 5. Run `pnpm --filter @website/backend dev`
 
 **Endpoints:**
-- `POST /api/events` – Track events (body: `{ sessionId, type: "click"|"pageview", target?, path? }`)
+
+- `POST /api/events` – Track bounded analytics events from allowed website origins
+- `GET /api/events` – Admin-only event listing (`x-admin-api-key` or `?key=`)
+- `GET /api/events/pageviews` – Admin-only aggregate pageview metrics
+- `GET /api/events/clicks` – Admin-only aggregate click metrics
 - `GET /api/healthcheck` – Health check
 
+**Analytics safeguards:**
+
+- `ADMIN_API_KEY` is required in production for analytics read endpoints.
+- Analytics writes are rate-limited per IP and capped to small payloads.
+- Analytics reads are rate-limited and run aggregate counts inside MongoDB.
+- The backend ensures compound query indexes and a TTL retention index at startup.
+
 **Deploy to Railway:**
+
 - Use the root `Dockerfile` (builds core + backend)
 - Set `DATABASE_URL` to your MongoDB Atlas (or Railway MongoDB) connection string
 - Set `CLIENT_URL` to your production frontend URL
+- Set `ADMIN_API_KEY` for analytics reads

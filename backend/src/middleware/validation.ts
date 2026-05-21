@@ -12,7 +12,7 @@ export function validate<T extends ZodSchema>(schema: T) {
           result.error.errors.map((err) => ({
             field: err.path.join("."),
             message: err.message,
-          }))
+          })),
         );
       }
       req.body = result.data as z.infer<T>;

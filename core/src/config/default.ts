@@ -9,11 +9,23 @@ const getEnv = (key: string, defaultValue = ""): string => {
   return value;
 };
 
+const getIntEnv = (key: string, defaultValue: number): number => {
+  const value = Number.parseInt(process.env[key] || "", 10);
+  return Number.isFinite(value) ? value : defaultValue;
+};
+
 const config = {
-  port: parseInt(process.env.PORT || "8080", 10),
+  port: getIntEnv("PORT", 8080),
   nodeEnv: getEnv("NODE_ENV", "development"),
   clientUrl: getEnv("CLIENT_URL", "http://localhost:5173"),
   databaseUrl: getEnv("DATABASE_URL"),
+  adminApiKey: getEnv("ADMIN_API_KEY"),
+  analyticsRetentionDays: getIntEnv("ANALYTICS_RETENTION_DAYS", 90),
+  analyticsWriteLimitPerMinute: getIntEnv(
+    "ANALYTICS_WRITE_LIMIT_PER_MINUTE",
+    60
+  ),
+  analyticsReadLimitPerMinute: getIntEnv("ANALYTICS_READ_LIMIT_PER_MINUTE", 30),
 };
 
 export default config;

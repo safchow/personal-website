@@ -3,8 +3,8 @@ import { NextFunction, Request, Response } from "express";
 import { z } from "zod";
 
 const getClicksQuerySchema = z.object({
-  path: z.string().min(1),
-  target: z.string().min(1),
+  path: z.string().min(1).max(512),
+  target: z.string().min(1).max(256),
 });
 
 /**
