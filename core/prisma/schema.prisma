@@ -18,5 +18,7 @@ model Event {
 
   @@index([sessionId])
   @@index([timestamp])
+  @@index([path, type, sessionId], map: "events_path_type_session_idx")
+  @@index([path, type, target], map: "events_path_type_target_idx")
   @@map("events")
 }
