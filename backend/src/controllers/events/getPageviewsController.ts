@@ -3,8 +3,19 @@ import { NextFunction, Request, Response } from "express";
 import { z } from "zod";
 
 const getPageviewsQuerySchema = z.object({
-  path: z.string().min(1),
+  path: z.string().min(1).max(512),
 });
+
+const aggregationCountSchema = z.object({
+  count: z.number(),
+});
+
+const pageviewsAggregationResultSchema = z
+  .object({
+    pageviews: z.array(aggregationCountSchema).optional(),
+    uniqueSessions: z.array(aggregationCountSchema).optional(),
+  })
+  .array();
 
 /**
  * Returns route-level pageview analytics for a given path.
@@ -22,27 +33,25 @@ export async function getPageviewsController(
   try {
     const { path } = getPageviewsQuerySchema.parse(req.query);
 
-    const [pageviewEvents, pageviews] = await Promise.all([
-      prisma.event.findMany({
-        where: {
-          path,
-          type: "pageview",
-        },
-        select: {
-          sessionId: true,
-        },
+    const [metrics] = pageviewsAggregationResultSchema.parse(
+      await prisma.event.aggregateRaw({
+        pipeline: [
+          { $match: { path, type: "pageview" } },
+          {
+            $facet: {
+              pageviews: [{ $count: "count" }],
+              uniqueSessions: [
+                { $group: { _id: "$sessionId" } },
+                { $count: "count" },
+              ],
+            },
+          },
+        ],
       }),
-      prisma.event.count({
-        where: {
-          path,
-          type: "pageview",
-        },
-      }),
-    ]);
+    );
 
-    const uniqueSessions = new Set(
-      pageviewEvents.map((event) => event.sessionId),
-    ).size;
+    const pageviews = metrics?.pageviews?.[0]?.count ?? 0;
+    const uniqueSessions = metrics?.uniqueSessions?.[0]?.count ?? 0;
 
     res.status(200).json({
       data: {
