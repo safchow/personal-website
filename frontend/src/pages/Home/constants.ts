@@ -1,8 +1,8 @@
 export const README_PROJECTS = [
   {
-    title: 'Opulus',
+    title: 'opulus',
     description:
-      'Personal finance dashboard prototype with Plaid account linking, transaction sync, webhook ingestion, and shared DTOs.',
+      'Personal finance workspace for turning scattered bank activity into clearer account, spending, and transaction insights.',
     repoUrl: 'https://github.com/OpulusProject/opulus-mono',
   },
   {
@@ -12,15 +12,15 @@ export const README_PROJECTS = [
     repoUrl: 'https://github.com/safchow/wheresxi',
   },
   {
-    title: 'safchow.dev',
+    title: 'personal website',
     description:
       'Portfolio site with a small first-party analytics loop for pageviews, anonymous sessions, click tracking, and aggregate reads.',
     repoUrl: 'https://github.com/safchow/personal-website',
   },
   {
-    title: 'Supportive Housing',
+    title: 'supportive housing',
     description:
-      'Location management platform for Supportive Housing of Waterloo with a Flask API and React TypeScript frontend.',
+      'Operational hub for housing staff to manage residents, locations, daily logs, and team workflows in one place.',
     repoUrl: 'https://github.com/uwblueprint/supportive-housing',
   },
 ] satisfies ReadmeProject[];
