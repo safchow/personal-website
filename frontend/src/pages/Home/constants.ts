@@ -12,13 +12,13 @@ export const README_PROJECTS = [
     repoUrl: 'https://github.com/safchow/wheresxi',
   },
   {
-    title: 'personal website',
+    title: 'personal-website',
     description:
       'Portfolio site with a small first-party analytics loop for pageviews, anonymous sessions, click tracking, and aggregate reads.',
     repoUrl: 'https://github.com/safchow/personal-website',
   },
   {
-    title: 'supportive housing',
+    title: 'supportive-housing',
     description:
       'Operational hub for housing staff to manage residents, locations, daily logs, and team workflows in one place.',
     repoUrl: 'https://github.com/uwblueprint/supportive-housing',
