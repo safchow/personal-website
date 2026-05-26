@@ -13,10 +13,10 @@ const ReadmeProjectCard: React.FC<{ project: ReadmeProject }> = ({
       href={project.repoUrl}
       target="_blank"
       rel="noreferrer"
-      className="group block h-full rounded-xl focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background"
+      className="group block h-full w-full rounded-xl focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background"
       aria-label={`View ${project.title} on GitHub`}
     >
-      <Card className="flex h-full flex-col bg-background/70 shadow-none transition-colors hover:border-foreground/24 hover:bg-foreground/[0.025]">
+      <Card className="flex h-full w-full flex-col bg-background/70 shadow-none transition-colors hover:border-foreground/24 hover:bg-foreground/[0.025]">
         <CardHeader className="space-y-4 p-5">
           <CardTitle className="text-xl font-medium tracking-tight">
             {project.title}
@@ -69,7 +69,7 @@ const ReadmeProjectCarousel: React.FC = () => {
         {README_PROJECTS.map((project) => (
           <div
             key={project.title}
-            className="min-w-full shrink-0 snap-center"
+            className="min-w-0 shrink-0 grow-0 basis-full snap-center"
             role="group"
             aria-roledescription="slide"
           >
