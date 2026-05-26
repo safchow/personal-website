@@ -1,46 +1,39 @@
 import * as React from 'react';
 
-import { PageLayout } from '@/common/PageLayout/PageLayout';
 import { Typography } from '@/common/Typography';
+import { EMAIL } from '@/lib/constants';
 
-// import { ExpandingMenu } from './components';
+import { SelectedWork } from './components';
 
 export const Home: React.FC = () => {
   return (
-    <PageLayout>
-      <div className="flex flex-1 min-h-0 items-center justify-center">
-        <div className="flex flex-col items-center text-center">
-          <Typography className="text-2xl sm:text-3xl md:text-4xl font-medium mb-6 sm:mb-8">
-            Building systems that last.
+    <div className="flex flex-1 min-h-0 overflow-hidden">
+      <div className="flex w-full flex-col justify-center">
+        <div className="flex flex-col gap-8">
+          {/* Header */}
+          <div className="flex items-center">
+            <Typography className="text-2xl font-medium">
+              Hey, I&apos;m Safwaan!
+            </Typography>
+          </div>
+
+          {/* Body */}
+          <Typography as="p" className="text-base leading-7 text-foreground/80">
+            I&apos;m a Full-Stack Engineer. Here are some of my projects.
           </Typography>
-          <Typography className="text-sm mb-4">
-            I build full-stack TypeScript products, from backend services to
-            React interfaces.
-          </Typography>
-          <Typography className="text-sm">
-            Currently a Full-Stack Engineer at{' '}
-            <a
-              href="https://relayfi.com/"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="link-inline"
-            >
-              Relay Financial
+
+          <SelectedWork />
+
+          <Typography as="p" className="text-base leading-7 text-foreground/80">
+            I like meeting people who care about building things well. You can
+            reach me by{' '}
+            <a href={`mailto:${EMAIL}`} className="link-inline">
+              email
             </a>
             .
           </Typography>
         </div>
       </div>
-      {/* ExpandingMenu - uncomment when case studies are ready
-      <div className="flex flex-1 min-h-0 overflow-x-auto">
-        <div className="flex flex-row gap-20 items-stretch w-full min-w-0 h-full">
-          <div className="flex flex-shrink-0 flex-col items-start justify-center">...</div>
-          <div className="flex flex-1 min-h-0 overflow-hidden">
-            <ExpandingMenu />
-          </div>
-        </div>
-      </div>
-      */}
-    </PageLayout>
+    </div>
   );
 };

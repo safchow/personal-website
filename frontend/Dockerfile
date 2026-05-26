@@ -15,18 +15,13 @@ WORKDIR /app
 COPY package.json pnpm-lock.yaml pnpm-workspace.yaml ./
 
 # Copy package.json files for all workspaces
-COPY stones/package.json ./stones/
 COPY frontend/package.json ./frontend/
 
 # Install dependencies (lockfile ensures correct native bindings for Alpine)
 RUN pnpm install --frozen-lockfile
 
 # Copy source code
-COPY stones ./stones
 COPY frontend ./frontend
-
-# Build dependencies first
-RUN pnpm --filter @website/stones build
 
 # Build frontend
 RUN pnpm --filter @website/frontend build

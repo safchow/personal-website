@@ -6,7 +6,7 @@ Personal portfolio website built with React, Vite, and Tailwind CSS.
 - **Vite** – build tool
 - **Tailwind CSS v4** – styling
 - **TanStack Router** – routing
-- **@website/stones** – shared UI component library (Radix, etc.)
+- **ShadCN/Radix UI components** – colocated in the frontend app
 
 ## Prerequisites
 
@@ -19,7 +19,7 @@ Personal portfolio website built with React, Vite, and Tailwind CSS.
 # Install dependencies
 pnpm install
 
-# Run development server (stones + frontend)
+# Run development servers
 pnpm dev
 ```
 
@@ -29,9 +29,8 @@ The site will be available at `http://localhost:5173` (or the next available por
 
 | Command | Description |
 |---------|-------------|
-| `pnpm dev` | Start stones (watch) + frontend dev server |
-| `pnpm build` | Build stones, then all packages |
-| `pnpm build:stones` | Build the stones component library only |
+| `pnpm dev` | Start the workspace development servers |
+| `pnpm build` | Build all packages |
 | `pnpm lint` | Run ESLint across all packages |
 | `pnpm format` | Format code with Prettier |
 | `pnpm type-check` | Run TypeScript checks |
@@ -41,7 +40,6 @@ The site will be available at `http://localhost:5173` (or the next available por
 ```
 website/
 ├── frontend/     # Main web app (Vite + React)
-├── stones/       # Shared UI component library
 ├── core/         # Prisma schema, config, shared utilities
 ├── backend/      # Express API (analytics, etc.)
 └── package.json  # Monorepo root

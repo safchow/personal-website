@@ -92,7 +92,6 @@ module.exports = {
       alias: {
         map: [
           ['@', path.resolve(__dirname, './src')],
-          ['@stones', path.resolve(__dirname, '../stones/src/index.ts')],
         ],
         extensions: ['.ts', '.tsx', '.js', '.jsx'],
       },
