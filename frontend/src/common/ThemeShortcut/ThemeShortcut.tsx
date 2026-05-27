@@ -138,7 +138,7 @@ export const ThemeShortcut: React.FC = () => {
           toastVisible ? 'translate-y-0 opacity-100' : 'translate-y-1 opacity-0'
         }`}
       >
-        <div className="inline-flex items-center gap-2 rounded-full border border-border/70 bg-card/90 px-3 py-1.5 text-xs text-foreground/80 shadow-md backdrop-blur">
+        <div className="inline-flex items-center gap-2 rounded-full border border-border/70 bg-card/90 px-3 py-1.5 text-xs text-foreground/70 shadow-md backdrop-blur">
           {resolvedTheme === 'dark' ? (
             <Moon className="size-3.5" aria-hidden="true" />
           ) : (
