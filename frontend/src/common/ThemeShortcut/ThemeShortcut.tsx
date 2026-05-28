@@ -6,7 +6,6 @@ import { useTrackEvent } from '@/hooks/useTrackEvent';
 import { useTrackedClick } from '@/lib/analytics/useTrackedClick';
 
 const TOAST_DURATION_MS = 1400;
-const TOGGLE_AUTO_HIDE_DELAY_MS = 10_000;
 
 const Kbd: React.FC<React.PropsWithChildren> = ({ children }) => (
   <kbd className="inline-flex h-6 min-w-[1.5rem] items-center justify-center rounded-md border border-border/70 bg-background/80 px-1.5 font-mono text-[11px] font-medium text-foreground/70 shadow-[inset_0_-1px_0_0_rgba(0,0,0,0.06)]">
@@ -78,14 +77,6 @@ export const ThemeShortcut: React.FC = () => {
   }, [triggerFromKeyboard]);
 
   React.useEffect(() => {
-    const id = window.setTimeout(
-      () => setShowToggle(false),
-      TOGGLE_AUTO_HIDE_DELAY_MS
-    );
-    return () => window.clearTimeout(id);
-  }, []);
-
-  React.useEffect(() => {
     return () => {
       if (toastTimerRef.current !== null) {
         window.clearTimeout(toastTimerRef.current);
@@ -105,7 +96,7 @@ export const ThemeShortcut: React.FC = () => {
 
       {showToggle ? (
         <>
-          <div className="pointer-events-none fixed inset-x-0 bottom-4 z-40 hidden justify-center opacity-60 transition-opacity duration-700 hover:opacity-100 sm:flex">
+          <div className="pointer-events-none fixed inset-x-0 bottom-4 z-40 hidden animate-theme-toggle-auto-hide justify-center opacity-60 transition-opacity duration-700 hover:opacity-100 sm:flex">
             <div className="pointer-events-auto inline-flex items-center gap-2 rounded-full border border-border/60 bg-background/70 px-3 py-1.5 text-[11px] text-foreground/60 shadow-sm backdrop-blur">
               <span>Press</span>
               <Kbd>T</Kbd>
@@ -116,7 +107,7 @@ export const ThemeShortcut: React.FC = () => {
             </div>
           </div>
 
-          <div className="fixed inset-x-0 bottom-4 z-40 flex justify-center sm:hidden">
+          <div className="fixed inset-x-0 bottom-4 z-40 flex animate-theme-toggle-auto-hide justify-center sm:hidden">
             <button
               type="button"
               onClick={toggleTheme}
