@@ -41,6 +41,8 @@ lerna-debug.log*
 # Testing
 coverage/
 .nyc_output/
+backend/test-results/
+backend/playwright-report/
 
 # Temporary files
 tmp/
