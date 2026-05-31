@@ -1,36 +1,9 @@
 import * as React from 'react';
 
-import { Typography } from '@/common/Typography';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { cn } from '@/lib/utils';
-import { README_PROJECTS, type ReadmeProject } from '@/pages/Home/constants';
+import { README_PROJECTS } from '@/pages/Home/constants';
 
-const ReadmeProjectCard: React.FC<{ project: ReadmeProject }> = ({
-  project,
-}) => {
-  return (
-    <a
-      href={project.repoUrl}
-      target="_blank"
-      rel="noreferrer"
-      className="group block h-full w-full rounded-xl focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background"
-      aria-label={`View ${project.title} on GitHub`}
-    >
-      <Card className="flex h-full w-full flex-col bg-background/70 shadow-none transition-colors hover:border-foreground/24 hover:bg-foreground/[0.025]">
-        <CardHeader className="space-y-4 p-5">
-          <CardTitle className="text-xl font-medium tracking-tight">
-            {project.title}
-          </CardTitle>
-          <Typography as="p" className="text-sm leading-6 text-foreground/68">
-            {project.description}
-          </Typography>
-        </CardHeader>
-
-        <CardContent className="flex flex-1 flex-col px-5 pb-5 pt-0" />
-      </Card>
-    </a>
-  );
-};
+import { TrackedProjectCard } from './TrackedProjectCard';
 
 const ReadmeProjectCarousel: React.FC = () => {
   const [activeIndex, setActiveIndex] = React.useState(0);
@@ -73,7 +46,7 @@ const ReadmeProjectCarousel: React.FC = () => {
             role="group"
             aria-roledescription="slide"
           >
-            <ReadmeProjectCard project={project} />
+            <TrackedProjectCard project={project} />
           </div>
         ))}
       </div>
@@ -110,7 +83,7 @@ export const SelectedWork: React.FC = () => {
 
       <div className="hidden gap-4 md:grid md:grid-cols-2">
         {README_PROJECTS.map((project) => (
-          <ReadmeProjectCard key={project.title} project={project} />
+          <TrackedProjectCard key={project.title} project={project} />
         ))}
       </div>
     </section>

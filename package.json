@@ -9,6 +9,7 @@
     "lint": "pnpm -r lint",
     "format": "pnpm -r format",
     "type-check": "pnpm -r type-check",
+    "test:backend:e2e": "pnpm --filter @website/backend test:e2e",
     "clean": "rm -rf node_modules && pnpm -r exec rm -rf node_modules dist",
     "install:all": "pnpm install",
     "docker:up": "docker compose up -d mongodb",

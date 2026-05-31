@@ -6,6 +6,7 @@ export type TrackEventPayload = {
   type: 'click' | 'pageview';
   target?: string;
   path?: string;
+  metadata?: Record<string, unknown>;
 };
 
 export async function trackEvent(
@@ -14,10 +15,16 @@ export async function trackEvent(
   const res = await fetch(`${getBaseUrl()}/api/events`, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
+    keepalive: true,
     body: JSON.stringify({
       sessionId: getSessionId(),
-      ...payload,
-      metadata: JSON.stringify(getDeviceMetadata()),
+      type: payload.type,
+      target: payload.target,
+      path: payload.path,
+      metadata: JSON.stringify({
+        ...getDeviceMetadata(),
+        ...payload.metadata,
+      }),
     }),
   });
   if (!res.ok) throw new Error('Failed to track event');
