@@ -41,6 +41,23 @@ jobs:
       - name: Install workspace dependencies
         run: pnpm install --frozen-lockfile
 
+      - name: Initialize MongoDB replica set
+        run: |
+          docker run --rm --network host mongo:7 mongosh "mongodb://127.0.0.1:27017/?directConnection=true" --eval "
+            try {
+              if (rs.status().ok) quit(0);
+            } catch (e) {}
+            rs.initiate({ _id: 'rs0', members: [{ _id: 0, host: '127.0.0.1:27017' }] });
+          "
+          for i in $(seq 1 30); do
+            if docker run --rm --network host mongo:7 mongosh "mongodb://127.0.0.1:27017/?directConnection=true" --eval "rs.status().ok" --quiet | grep -q true; then
+              exit 0
+            fi
+            sleep 1
+          done
+          echo "MongoDB replica set failed to become ready"
+          exit 1
+
       - name: Run Playwright backend tests
         run: pnpm test:backend:e2e
         env:
