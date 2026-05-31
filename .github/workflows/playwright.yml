@@ -14,17 +14,6 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 10
 
-    services:
-      mongodb:
-        image: mongo:7
-        ports:
-          - 27017:27017
-        options: >-
-          --health-cmd "mongosh --eval 'db.runCommand({ ping: 1 })'"
-          --health-interval 5s
-          --health-timeout 5s
-          --health-retries 10
-
     steps:
       - name: Check out repo
         uses: actions/checkout@v4
@@ -38,25 +27,23 @@ jobs:
           node-version: 22
           cache: pnpm
 
-      - name: Install workspace dependencies
-        run: pnpm install --frozen-lockfile
-
-      - name: Initialize MongoDB replica set
+      - name: Start MongoDB replica set
         run: |
-          docker run --rm --network host mongo:7 mongosh "mongodb://127.0.0.1:27017/?directConnection=true" --eval "
-            try {
-              if (rs.status().ok) quit(0);
-            } catch (e) {}
-            rs.initiate({ _id: 'rs0', members: [{ _id: 0, host: '127.0.0.1:27017' }] });
-          "
-          for i in $(seq 1 30); do
-            if docker run --rm --network host mongo:7 mongosh "mongodb://127.0.0.1:27017/?directConnection=true" --eval "rs.status().ok" --quiet | grep -q true; then
+          docker build -t website-mongodb ./mongodb_replica --build-arg MONGO_VERSION=7
+          docker run -d --name mongodb -p 27017:27017 website-mongodb
+          for i in $(seq 1 60); do
+            if docker run --rm --network host mongo:7 mongosh "mongodb://127.0.0.1:27017/?directConnection=true" --eval "rs.status().ok" --quiet 2>/dev/null | grep -q true; then
+              echo "MongoDB replica set is ready"
               exit 0
             fi
             sleep 1
           done
           echo "MongoDB replica set failed to become ready"
+          docker logs mongodb
           exit 1
+
+      - name: Install workspace dependencies
+        run: pnpm install --frozen-lockfile
 
       - name: Run Playwright backend tests
         run: pnpm test:backend:e2e
