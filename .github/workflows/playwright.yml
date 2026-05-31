@@ -31,8 +31,8 @@ jobs:
         run: |
           docker build -t website-mongodb ./mongodb_replica --build-arg MONGO_VERSION=7
           docker run -d --name mongodb -p 27017:27017 website-mongodb
-          for i in $(seq 1 60); do
-            if docker run --rm --network host mongo:7 mongosh "mongodb://127.0.0.1:27017/?directConnection=true" --eval "rs.status().ok" --quiet 2>/dev/null | grep -q true; then
+          for i in $(seq 1 90); do
+            if docker logs mongodb 2>&1 | grep -q "REPLICA SET ONLINE"; then
               echo "MongoDB replica set is ready"
               exit 0
             fi
