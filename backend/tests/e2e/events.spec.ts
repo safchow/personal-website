@@ -1,3 +1,14 @@
+/**
+ * API integration tests for the analytics events endpoints.
+ *
+ * Coverage:
+ * - POST /api/events: valid click payloads return 201 and persist to Mongo
+ * - POST /api/events: invalid payloads return 400 and write nothing
+ * - GET /api/events/clicks: aggregates stored clicks by path + target
+ *
+ * Each test hits the real Express app (see playwright.config.ts) and asserts
+ * persistence through testPrisma(), with the events collection wiped before every case.
+ */
 import { expect, test } from "@playwright/test";
 
 import { disconnectDb, resetDb, testPrisma } from "./helpers/db.js";
@@ -11,6 +22,7 @@ test.afterAll(async () => {
 });
 
 test.describe("POST /api/events", () => {
+  // Happy path: API response matches what landed in the database.
   test("stores a click event and returns the created row", async ({
     request,
   }) => {
@@ -54,6 +66,7 @@ test.describe("POST /api/events", () => {
     });
   });
 
+  // Guardrail: Zod validation failures must not create partial rows.
   test("rejects invalid payloads without storing an event", async ({
     request,
   }) => {
@@ -80,6 +93,7 @@ test.describe("POST /api/events", () => {
 });
 
 test.describe("GET /api/events/clicks", () => {
+  // Read path used by dashboards; seeds data directly to isolate counting logic.
   test("counts stored clicks for a path and target", async ({ request }) => {
     await testPrisma().event.createMany({
       data: [

@@ -23,6 +23,7 @@ export default defineConfig({
   },
 
   webServer: {
+    // cross-env sets DATABASE_URL before tsx loads dotenv/dev defaults (wheresxi pattern).
     command: [
       "cross-env",
       "NODE_ENV=test",
