@@ -47,31 +47,45 @@ website/
 
 ## Backend (Analytics API)
 
-The backend provides an events API for anonymous analytics.
+The backend provides an events API for anonymous analytics. Both development and
+production use **MongoDB Atlas** as the application database. (A local Docker
+MongoDB replica set is used only by the e2e test suite — see Testing.)
 
-**Local setup with Docker MongoDB:**
+**Local development setup (Atlas):**
 ```bash
-# Start MongoDB
-docker compose up -d mongodb
-
-# Copy env and run backend
+# Copy env and point DATABASE_URL at your Atlas SRV connection string
 cp backend/.env.example backend/.env
+# edit backend/.env: set DATABASE_URL=mongodb+srv://...
+
 pnpm --filter @website/core prisma:generate
+pnpm --filter @website/core exec prisma db push   # create the events collection + indexes
 pnpm --filter @website/backend dev
 ```
 
-**Manual setup:**
-1. Copy `backend/.env.example` to `backend/.env`
-2. Set `DATABASE_URL` (use `mongodb://localhost:27017/website` for local Docker)
-3. Set `CLIENT_URL` to your frontend URL (e.g. `http://localhost:5173`)
-4. Run `pnpm --filter @website/core prisma:generate`
-5. Run `pnpm --filter @website/backend dev`
+See [docs/atlas-migration-runbook.md](docs/atlas-migration-runbook.md) for the
+full Atlas + Railway provisioning steps.
 
 **Endpoints:**
 - `POST /api/events` – Track events (body: `{ sessionId, type: "click"|"pageview", target?, path? }`)
+- `GET /api/events/clicks?path=&target=` – Aggregate click counts
+- `GET /api/events/pageviews?path=` – Aggregate pageview + unique-session counts
 - `GET /api/healthcheck` – Health check
+
+**Data retention:** raw analytics events expire automatically via a MongoDB TTL
+index on `events.timestamp`, configured with `ANALYTICS_RETENTION_DAYS`
+(default 90). The index is ensured at backend startup.
 
 **Deploy to Railway:**
 - Use the root `Dockerfile` (builds core + backend)
-- Set `DATABASE_URL` to your MongoDB Atlas (or Railway MongoDB) connection string
+- Set `DATABASE_URL` to your MongoDB Atlas SRV connection string
 - Set `CLIENT_URL` to your production frontend URL
+- Optionally set `ANALYTICS_RETENTION_DAYS` (defaults to 90)
+
+## Testing
+
+The backend e2e suite runs against a local single-node MongoDB replica set, not
+Atlas, so test data is isolated and disposable:
+```bash
+pnpm docker:up            # start local Mongo replica set on :27017
+pnpm test:backend:e2e     # run the Playwright API integration tests
+```

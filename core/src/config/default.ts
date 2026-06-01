@@ -9,11 +9,19 @@ const getEnv = (key: string, defaultValue = ""): string => {
   return value;
 };
 
+const getIntEnv = (key: string, defaultValue: number): number => {
+  const raw = process.env[key];
+  if (!raw) return defaultValue;
+  const parsed = parseInt(raw, 10);
+  return Number.isFinite(parsed) ? parsed : defaultValue;
+};
+
 const config = {
   port: parseInt(process.env.PORT || "8080", 10),
   nodeEnv: getEnv("NODE_ENV", "development"),
   clientUrl: getEnv("CLIENT_URL", "http://localhost:5173"),
   databaseUrl: getEnv("DATABASE_URL"),
+  analyticsRetentionDays: getIntEnv("ANALYTICS_RETENTION_DAYS", 90),
 };
 
 export default config;

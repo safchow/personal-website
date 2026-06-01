@@ -1,3 +1,6 @@
+# Local MongoDB replica set for the backend e2e test suite only.
+# The application database (development + production) is MongoDB Atlas; see
+# backend/.env.example and docs/atlas-migration-runbook.md.
 services:
   mongodb:
     build:
