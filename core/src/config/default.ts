@@ -21,7 +21,7 @@ const config = {
   nodeEnv: getEnv("NODE_ENV", "development"),
   clientUrl: getEnv("CLIENT_URL", "http://localhost:5173"),
   databaseUrl: getEnv("DATABASE_URL"),
-  analyticsRetentionDays: getIntEnv("ANALYTICS_RETENTION_DAYS", 90),
+  analyticsRetentionDays: getIntEnv("ANALYTICS_RETENTION_DAYS", 730),
 };
 
 export default config;

@@ -73,13 +73,13 @@ full Atlas + Railway provisioning steps.
 
 **Data retention:** raw analytics events expire automatically via a MongoDB TTL
 index on `events.timestamp`, configured with `ANALYTICS_RETENTION_DAYS`
-(default 90). The index is ensured at backend startup.
+(default 730 — 2 years). The index is ensured at backend startup.
 
 **Deploy to Railway:**
 - Use the root `Dockerfile` (builds core + backend)
 - Set `DATABASE_URL` to your MongoDB Atlas SRV connection string
 - Set `CLIENT_URL` to your production frontend URL
-- Optionally set `ANALYTICS_RETENTION_DAYS` (defaults to 90)
+- Optionally set `ANALYTICS_RETENTION_DAYS` (defaults to 730)
 
 ## Testing
 

@@ -20,7 +20,7 @@ provisioning and cutover that must be done outside the codebase.
 
 - Local: set `DATABASE_URL` in `backend/.env` to the Atlas SRV string.
 - Railway: set `DATABASE_URL` to the same Atlas SRV string.
-- Optionally set `ANALYTICS_RETENTION_DAYS` (defaults to 90).
+- Optionally set `ANALYTICS_RETENTION_DAYS` (defaults to 730).
 
 ## 3. Create the collection + indexes
 
