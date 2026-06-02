@@ -71,6 +71,32 @@ test.describe("POST /api/events", () => {
     });
   });
 
+  // Pageview is the other supported event type; verify it persists too.
+  test("stores a pageview event and returns the created row", async ({
+    request,
+  }) => {
+    const res = await request.post("/api/events", {
+      data: {
+        sessionId: "session_pageview",
+        type: "pageview",
+        path: "/",
+      },
+    });
+
+    expect(res.status()).toBe(201);
+    const body = await res.json();
+    expect(body.data.event).toMatchObject({
+      sessionId: "session_pageview",
+      type: "pageview",
+      path: "/",
+    });
+    expect(body.data.event.id).toEqual(expect.any(String));
+
+    const stored = await findEvents({ sessionId: "session_pageview" });
+    expect(stored).toHaveLength(1);
+    expect(stored[0]).toMatchObject({ type: "pageview", path: "/" });
+  });
+
   // Guardrail: Zod validation failures must not create partial rows.
   test("rejects invalid payloads without storing an event", async ({
     request,
