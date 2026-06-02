@@ -1,4 +1,4 @@
-import { prisma } from "@website/core";
+import { getEventsCollection } from "@website/core";
 import { NextFunction, Request, Response } from "express";
 import { z } from "zod";
 
@@ -34,8 +34,8 @@ export async function getPageviewsController(
     const { path } = getPageviewsQuerySchema.parse(req.query);
 
     const [metrics] = pageviewsAggregationResultSchema.parse(
-      await prisma.event.aggregateRaw({
-        pipeline: [
+      await getEventsCollection()
+        .aggregate([
           { $match: { path, type: "pageview" } },
           {
             $facet: {
@@ -46,8 +46,8 @@ export async function getPageviewsController(
               ],
             },
           },
-        ],
-      }),
+        ])
+        .toArray(),
     );
 
     const pageviews = metrics?.pageviews?.[0]?.count ?? 0;

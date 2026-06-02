@@ -1,27 +1,47 @@
-import { PrismaClient } from "@prisma/client";
+import { type Collection, MongoClient } from "mongodb";
 
 import { TEST_DB_URL } from "../../../playwright.config.js";
 
-let prisma: PrismaClient | null = null;
+let client: MongoClient | null = null;
 
-export function testPrisma(): PrismaClient {
-  if (prisma) return prisma;
-
-  prisma = new PrismaClient({
-    datasources: { db: { url: TEST_DB_URL } },
-    log: ["error"],
-  });
-
-  return prisma;
+async function eventsCollection(): Promise<Collection> {
+  if (!client) {
+    client = new MongoClient(TEST_DB_URL);
+    await client.connect();
+  }
+  return client.db().collection("events");
 }
 
 export async function resetDb(): Promise<void> {
-  await testPrisma().event.deleteMany();
+  const events = await eventsCollection();
+  await events.deleteMany({});
+}
+
+export async function insertEvents(
+  docs: Record<string, unknown>[],
+): Promise<void> {
+  const events = await eventsCollection();
+  await events.insertMany(
+    docs.map((doc) => ({ timestamp: new Date(), ...doc })),
+  );
+}
+
+export async function findEvents(
+  filter: Record<string, unknown> = {},
+): Promise<Record<string, unknown>[]> {
+  const events = await eventsCollection();
+  return events.find(filter).toArray();
+}
+
+export async function countEvents(
+  filter: Record<string, unknown> = {},
+): Promise<number> {
+  const events = await eventsCollection();
+  return events.countDocuments(filter);
 }
 
 export async function disconnectDb(): Promise<void> {
-  if (!prisma) return;
-
-  await prisma.$disconnect();
-  prisma = null;
+  if (!client) return;
+  await client.close();
+  client = null;
 }

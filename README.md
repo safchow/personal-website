@@ -40,7 +40,7 @@ The site will be available at `http://localhost:5173` (or the next available por
 ```
 website/
 ├── frontend/     # Main web app (Vite + React)
-├── core/         # Prisma schema, config, shared utilities
+├── core/         # MongoDB client, config, shared utilities
 ├── backend/      # Express API (analytics, etc.)
 └── package.json  # Monorepo root
 ```
@@ -57,10 +57,13 @@ MongoDB replica set is used only by the e2e test suite — see Testing.)
 cp backend/.env.example backend/.env
 # edit backend/.env: set DATABASE_URL=mongodb+srv://...
 
-pnpm --filter @website/core prisma:generate
-pnpm --filter @website/core exec prisma db push   # create the events collection + indexes
+pnpm --filter @website/core build
 pnpm --filter @website/backend dev
 ```
+
+The `events` collection and its indexes (`sessionId` + the `timestamp` TTL
+index) are created automatically the first time the backend boots — there is no
+separate schema/migration step.
 
 See [docs/atlas-migration-runbook.md](docs/atlas-migration-runbook.md) for the
 full Atlas + Railway provisioning steps.

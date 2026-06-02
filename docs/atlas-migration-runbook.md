@@ -24,16 +24,16 @@ provisioning and cutover that must be done outside the codebase.
 
 ## 3. Create the collection + indexes
 
-```bash
-pnpm --filter @website/core prisma:generate
-pnpm --filter @website/core exec prisma db push
-```
+No manual migration step. The backend uses the official `mongodb` Node driver,
+and `ensureAnalyticsStorage()` (see `backend/src/services/analyticsStorage.ts`)
+creates the `events` collection indexes on every boot:
 
-`prisma db push` creates the `events` collection and the schema indexes
-(`sessionId`, `timestamp`). The TTL retention option is applied on top of the
-`timestamp` index automatically when the backend boots (see
-`backend/src/services/analyticsStorage.ts`); it self-heals on each restart if a
-later `db push` strips the TTL option.
+- `sessionId` lookup index
+- `timestamp` TTL index with `expireAfterSeconds` from `ANALYTICS_RETENTION_DAYS`
+
+The collection itself is created lazily on the first inserted event. Index
+creation is idempotent and self-healing — a changed retention value is applied
+in place via `collMod` on the next restart.
 
 ## 4. Validate connectivity
 

@@ -1,4 +1,4 @@
-import { prisma } from "@website/core";
+import { getEventsCollection } from "@website/core";
 import { NextFunction, Request, Response } from "express";
 import { z } from "zod";
 
@@ -23,12 +23,10 @@ export async function getClicksController(
   try {
     const { path, target } = getClicksQuerySchema.parse(req.query);
 
-    const count = await prisma.event.count({
-      where: {
-        path,
-        target,
-        type: "click",
-      },
+    const count = await getEventsCollection().countDocuments({
+      path,
+      target,
+      type: "click",
     });
 
     res.status(200).json({
