@@ -13,8 +13,7 @@
     "clean": "rm -rf node_modules && pnpm -r exec rm -rf node_modules dist",
     "install:all": "pnpm install",
     "docker:up": "docker compose up -d mongodb",
-    "docker:down": "docker compose down",
-    "prisma:studio": "dotenv -e backend/.env -- pnpm --filter @website/core prisma:studio"
+    "docker:down": "docker compose down"
   },
   "devDependencies": {
     "concurrently": "^9.1.0",

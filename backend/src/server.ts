@@ -2,15 +2,19 @@ import "dotenv/config";
 
 import { errorHandler } from "@/middleware/errorHandler.js";
 import router from "@/routes/index.js";
+import { ensureAnalyticsStorage } from "@/services/analyticsStorage.js";
 import {
   config,
+  connectMongo,
+  disconnectMongo,
+  getMongoClient,
   logger,
-  prisma,
   requestIdMiddleware,
   requestLogger,
 } from "@website/core";
 import cors from "cors";
 import express, { json } from "express";
+import type { Server } from "node:http";
 
 const app = express();
 
@@ -50,7 +54,7 @@ app.get("/health", (req, res) => {
 
 app.get("/ready", async (req, res) => {
   try {
-    await prisma.$runCommandRaw({ ping: 1 });
+    await getMongoClient().db().command({ ping: 1 });
     res.status(200).json({
       status: "ready",
       timestamp: new Date().toISOString(),
@@ -70,8 +74,55 @@ app.use("/api", router);
 app.use(errorHandler);
 
 const PORT = config.port;
-app.listen(PORT, "0.0.0.0", () => {
-  logger.info(`Server running on port ${PORT}`);
-  logger.info(`Environment: ${config.nodeEnv}`);
-  logger.info(`API available at http://localhost:${PORT}/api`);
-});
+
+function setupGracefulShutdown(server: Server) {
+  let isShuttingDown = false;
+
+  const shutdown = (signal: NodeJS.Signals) => {
+    if (isShuttingDown) return;
+    isShuttingDown = true;
+
+    logger.info({ signal }, "Shutting down server");
+    const forceExitTimer = setTimeout(() => {
+      logger.error("Forced shutdown after timeout");
+      process.exit(1);
+    }, 10_000);
+    forceExitTimer.unref?.();
+
+    server.close(async (error) => {
+      if (error) {
+        logger.error({ err: error }, "Error closing HTTP server");
+      }
+
+      try {
+        await disconnectMongo();
+      } catch (disconnectError) {
+        logger.error(
+          { err: disconnectError },
+          "Error disconnecting MongoDB client",
+        );
+      }
+
+      clearTimeout(forceExitTimer);
+      process.exit(error ? 1 : 0);
+    });
+  };
+
+  process.on("SIGTERM", shutdown);
+  process.on("SIGINT", shutdown);
+}
+
+async function start() {
+  await connectMongo();
+  await ensureAnalyticsStorage();
+
+  const server = app.listen(PORT, "0.0.0.0", () => {
+    logger.info(`Server running on port ${PORT}`);
+    logger.info(`Environment: ${config.nodeEnv}`);
+    logger.info(`API available at http://localhost:${PORT}/api`);
+  });
+
+  setupGracefulShutdown(server);
+}
+
+void start();

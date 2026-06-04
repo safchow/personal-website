@@ -40,38 +40,54 @@ The site will be available at `http://localhost:5173` (or the next available por
 ```
 website/
 ├── frontend/     # Main web app (Vite + React)
-├── core/         # Prisma schema, config, shared utilities
+├── core/         # MongoDB client, config, shared utilities
 ├── backend/      # Express API (analytics, etc.)
 └── package.json  # Monorepo root
 ```
 
 ## Backend (Analytics API)
 
-The backend provides an events API for anonymous analytics.
+The backend provides an events API for anonymous analytics. Both development and
+production use **MongoDB Atlas** as the application database. (A local Docker
+MongoDB replica set is used only by the e2e test suite — see Testing.)
 
-**Local setup with Docker MongoDB:**
+**Local development setup (Atlas):**
 ```bash
-# Start MongoDB
-docker compose up -d mongodb
-
-# Copy env and run backend
+# Copy env and point DATABASE_URL at your Atlas SRV connection string
 cp backend/.env.example backend/.env
-pnpm --filter @website/core prisma:generate
+# edit backend/.env: set DATABASE_URL=mongodb+srv://...
+
+pnpm --filter @website/core build
 pnpm --filter @website/backend dev
 ```
 
-**Manual setup:**
-1. Copy `backend/.env.example` to `backend/.env`
-2. Set `DATABASE_URL` (use `mongodb://localhost:27017/website` for local Docker)
-3. Set `CLIENT_URL` to your frontend URL (e.g. `http://localhost:5173`)
-4. Run `pnpm --filter @website/core prisma:generate`
-5. Run `pnpm --filter @website/backend dev`
+The `events` collection and its indexes (`sessionId` + the `timestamp` TTL
+index) are created automatically the first time the backend boots — there is no
+separate schema/migration step.
+
+See [docs/atlas-migration-runbook.md](docs/atlas-migration-runbook.md) for the
+full Atlas + Railway provisioning steps.
 
 **Endpoints:**
 - `POST /api/events` – Track events (body: `{ sessionId, type: "click"|"pageview", target?, path? }`)
+- `GET /api/events/stats?path=&type=&target=` – Aggregate event count + unique sessions (filter by `type` and/or `target`)
 - `GET /api/healthcheck` – Health check
+
+**Data retention:** raw analytics events expire automatically via a MongoDB TTL
+index on `events.timestamp`, configured with `ANALYTICS_RETENTION_DAYS`
+(default 730 — 2 years). The index is ensured at backend startup.
 
 **Deploy to Railway:**
 - Use the root `Dockerfile` (builds core + backend)
-- Set `DATABASE_URL` to your MongoDB Atlas (or Railway MongoDB) connection string
+- Set `DATABASE_URL` to your MongoDB Atlas SRV connection string
 - Set `CLIENT_URL` to your production frontend URL
+- Optionally set `ANALYTICS_RETENTION_DAYS` (defaults to 730)
+
+## Testing
+
+The backend e2e suite runs against a local single-node MongoDB replica set, not
+Atlas, so test data is isolated and disposable:
+```bash
+pnpm docker:up            # start local Mongo replica set on :27017
+pnpm test:backend:e2e     # run the Playwright API integration tests
+```
