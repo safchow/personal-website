@@ -1,8 +1,8 @@
 /**
- * API integration tests for GET /api/events/pageviews.
+ * API integration tests for GET /api/events/stats with the pageview filter.
  *
  * Coverage:
- * - aggregates total pageviews and unique sessions for a path
+ * - aggregates total pageviews and unique sessions for a path (type=pageview)
  * - ignores click events and other paths
  * - returns zeroes for a path with no pageviews
  *
@@ -21,7 +21,7 @@ test.afterAll(async () => {
   await disconnectDb();
 });
 
-test.describe("GET /api/events/pageviews", () => {
+test.describe("GET /api/events/stats (pageviews)", () => {
   test("aggregates pageviews and unique sessions for a path", async ({
     request,
   }) => {
@@ -35,30 +35,34 @@ test.describe("GET /api/events/pageviews", () => {
       { sessionId: "s4", type: "pageview", path: "/about" },
     ]);
 
-    const res = await request.get("/api/events/pageviews", {
-      params: { path: "/" },
+    const res = await request.get("/api/events/stats", {
+      params: { path: "/", type: "pageview" },
     });
 
     expect(res.status()).toBe(200);
     await expect(res.json()).resolves.toEqual({
       data: {
         path: "/",
-        pageviews: 3,
+        type: "pageview",
+        target: null,
+        count: 3,
         uniqueSessions: 2,
       },
     });
   });
 
   test("returns zeroes for a path with no pageviews", async ({ request }) => {
-    const res = await request.get("/api/events/pageviews", {
-      params: { path: "/never-viewed" },
+    const res = await request.get("/api/events/stats", {
+      params: { path: "/never-viewed", type: "pageview" },
     });
 
     expect(res.status()).toBe(200);
     await expect(res.json()).resolves.toEqual({
       data: {
         path: "/never-viewed",
-        pageviews: 0,
+        type: "pageview",
+        target: null,
+        count: 0,
         uniqueSessions: 0,
       },
     });
