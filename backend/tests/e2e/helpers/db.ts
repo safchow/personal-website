@@ -40,6 +40,17 @@ export async function countEvents(
   return events.countDocuments(filter);
 }
 
+export type EventIndex = {
+  name?: string;
+  key: Record<string, number>;
+  expireAfterSeconds?: number;
+};
+
+export async function listEventIndexes(): Promise<EventIndex[]> {
+  const events = await eventsCollection();
+  return (await events.indexes()) as unknown as EventIndex[];
+}
+
 export async function disconnectDb(): Promise<void> {
   if (!client) return;
   await client.close();
