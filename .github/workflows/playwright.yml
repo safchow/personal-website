@@ -1,0 +1,51 @@
+name: Playwright Backend Tests
+
+on:
+  pull_request:
+    branches:
+      - main
+
+permissions:
+  contents: read
+
+jobs:
+  backend-playwright:
+    name: Backend Playwright suite
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+
+    steps:
+      - name: Check out repo
+        uses: actions/checkout@v4
+
+      - name: Set up pnpm
+        uses: pnpm/action-setup@v4
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: pnpm
+
+      - name: Start MongoDB replica set
+        run: |
+          docker build -t website-mongodb ./mongodb_replica --build-arg MONGO_VERSION=7
+          docker run -d --name mongodb -p 27017:27017 website-mongodb
+          for i in $(seq 1 90); do
+            if docker logs mongodb 2>&1 | grep -q "REPLICA SET ONLINE"; then
+              echo "MongoDB replica set is ready"
+              exit 0
+            fi
+            sleep 1
+          done
+          echo "MongoDB replica set failed to become ready"
+          docker logs mongodb
+          exit 1
+
+      - name: Install workspace dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Run Playwright backend tests
+        run: pnpm test:backend:e2e
+        env:
+          CI: true
