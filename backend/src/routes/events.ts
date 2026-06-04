@@ -2,10 +2,8 @@ import {
   createEventController,
   createEventSchema,
 } from "@/controllers/events/createEventController.js";
-import { getClicksController } from "@/controllers/events/getClicksController.js";
-import { getPageviewsController } from "@/controllers/events/getPageviewsController.js";
+import { getEventStatsController } from "@/controllers/events/getEventStatsController.js";
 import { listEventsController } from "@/controllers/events/listEventsController.js";
-import { requireAdminKey } from "@/middleware/adminKey.js";
 import { requireAnalyticsOrigin } from "@/middleware/analyticsOrigin.js";
 import {
   analyticsReadRateLimiter,
@@ -16,24 +14,8 @@ import { Router } from "express";
 
 const router: ReturnType<typeof Router> = Router();
 
-router.get(
-  "/",
-  analyticsReadRateLimiter,
-  requireAdminKey,
-  listEventsController,
-);
-router.get(
-  "/pageviews",
-  analyticsReadRateLimiter,
-  requireAdminKey,
-  getPageviewsController,
-);
-router.get(
-  "/clicks",
-  analyticsReadRateLimiter,
-  requireAdminKey,
-  getClicksController,
-);
+router.get("/", analyticsReadRateLimiter, listEventsController);
+router.get("/stats", analyticsReadRateLimiter, getEventStatsController);
 router.post(
   "/",
   analyticsWriteRateLimiter,

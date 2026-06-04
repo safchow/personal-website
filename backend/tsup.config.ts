@@ -7,7 +7,7 @@ export default defineConfig({
   outDir: "dist",
   clean: true,
   sourcemap: true,
-  external: ["@website/core", "express", "cors", "dotenv", "zod"],
+  external: ["@website/core", "express", "cors", "dotenv", "zod", "mongodb"],
   esbuildOptions(options) {
     options.alias = { "@": "./src" };
   },

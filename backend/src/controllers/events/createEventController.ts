@@ -1,4 +1,4 @@
-import { prisma } from "@website/core";
+import { getEventsCollection } from "@website/core";
 import { NextFunction, Request, Response } from "express";
 import { z } from "zod";
 
@@ -17,17 +17,30 @@ export async function createEventController(
 ) {
   try {
     const body = req.body as z.infer<typeof createEventSchema>;
-    const event = await prisma.event.create({
+    const doc = {
+      sessionId: body.sessionId,
+      type: body.type,
+      target: body.target ?? null,
+      path: body.path ?? null,
+      timestamp: new Date(),
+      metadata: body.metadata ?? null,
+    };
+
+    const { insertedId } = await getEventsCollection().insertOne(doc);
+
+    res.status(201).json({
       data: {
-        sessionId: body.sessionId,
-        type: body.type,
-        target: body.target,
-        path: body.path,
-        metadata: body.metadata,
+        event: {
+          id: insertedId.toHexString(),
+          sessionId: doc.sessionId,
+          type: doc.type,
+          target: doc.target,
+          path: doc.path,
+          timestamp: doc.timestamp.toISOString(),
+          metadata: doc.metadata,
+        },
       },
     });
-
-    res.status(201).json({ data: { event } });
   } catch (error) {
     next(error);
   }

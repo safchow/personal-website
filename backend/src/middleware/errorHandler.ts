@@ -16,12 +16,15 @@ export function errorHandler(
     return;
   }
 
+  // Controllers that validate query params with schema.parse() throw a raw
+  // ZodError; surface it as a 400 (same shape as the validate() middleware)
+  // instead of a 500.
   if (error instanceof ZodError) {
     res.status(400).json({
       error: "Validation failed",
-      details: error.errors.map((err) => ({
-        field: err.path.join("."),
-        message: err.message,
+      details: error.errors.map((issue) => ({
+        field: issue.path.join("."),
+        message: issue.message,
       })),
     });
     return;
