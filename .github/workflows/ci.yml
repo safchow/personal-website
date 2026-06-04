@@ -1,0 +1,117 @@
+name: CI
+
+on:
+  pull_request:
+    branches:
+      - main
+  push:
+    branches:
+      - main
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ci-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  lint-typecheck:
+    name: Lint & typecheck
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+
+    steps:
+      - name: Check out repo
+        uses: actions/checkout@v4
+
+      - name: Set up pnpm
+        uses: pnpm/action-setup@v4
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: pnpm
+
+      - name: Install workspace dependencies
+        run: pnpm install --frozen-lockfile
+
+      # @website/core must be compiled first so backend type-check can resolve
+      # its published types from dist/.
+      - name: Build core package
+        run: pnpm --filter @website/core build
+
+      - name: Lint
+        run: pnpm lint
+
+      - name: Type-check
+        run: pnpm type-check
+
+  build:
+    name: Build
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+
+    steps:
+      - name: Check out repo
+        uses: actions/checkout@v4
+
+      - name: Set up pnpm
+        uses: pnpm/action-setup@v4
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: pnpm
+
+      - name: Install workspace dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Build all packages
+        run: pnpm build
+
+  backend-e2e:
+    name: Backend Playwright suite
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+
+    steps:
+      - name: Check out repo
+        uses: actions/checkout@v4
+
+      - name: Set up pnpm
+        uses: pnpm/action-setup@v4
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: pnpm
+
+      # The backend e2e suite talks to a single-node MongoDB replica set at
+      # mongodb://localhost:27017/website_test. Build and run the repo's custom
+      # mongodb_replica image and wait for it to self-initiate the replica set.
+      - name: Start MongoDB replica set
+        run: |
+          docker build -t website-mongodb ./mongodb_replica --build-arg MONGO_VERSION=7
+          docker run -d --name mongodb -p 27017:27017 website-mongodb
+          for i in $(seq 1 90); do
+            if docker logs mongodb 2>&1 | grep -q "REPLICA SET ONLINE"; then
+              echo "MongoDB replica set is ready"
+              exit 0
+            fi
+            sleep 1
+          done
+          echo "MongoDB replica set failed to become ready"
+          docker logs mongodb
+          exit 1
+
+      - name: Install workspace dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Run Playwright backend tests
+        run: pnpm test:backend:e2e
+        env:
+          CI: true
