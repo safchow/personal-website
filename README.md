@@ -70,8 +70,7 @@ full Atlas + Railway provisioning steps.
 
 **Endpoints:**
 - `POST /api/events` – Track events (body: `{ sessionId, type: "click"|"pageview", target?, path? }`)
-- `GET /api/events/clicks?path=&target=` – Aggregate click counts
-- `GET /api/events/pageviews?path=` – Aggregate pageview + unique-session counts
+- `GET /api/events/stats?path=&type=&target=` – Aggregate event count + unique sessions (filter by `type` and/or `target`)
 - `GET /api/healthcheck` – Health check
 
 **Data retention:** raw analytics events expire automatically via a MongoDB TTL

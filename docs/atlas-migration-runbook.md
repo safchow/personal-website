@@ -46,7 +46,7 @@ in place via `collMod` on the next restart.
    curl -X POST http://localhost:8080/api/events \
      -H 'content-type: application/json' \
      -d '{"sessionId":"smoke","type":"click","target":"smoke","path":"/"}'
-   curl 'http://localhost:8080/api/events/clicks?path=/&target=smoke'   # count: 1
+   curl 'http://localhost:8080/api/events/stats?path=/&type=click&target=smoke'   # count: 1
    ```
 4. In Atlas, confirm the `events` collection has indexes on `sessionId`,
    `timestamp` (with `expireAfterSeconds`), and `_id`.
@@ -69,6 +69,6 @@ in place via `collMod` on the next restart.
 ## Acceptance check
 
 - Production backend connects to Atlas; `/ready` is green.
-- `POST /api/events` persists; `GET /api/events/clicks` and `/pageviews` read correctly.
+- `POST /api/events` persists; `GET /api/events/stats` reads aggregates correctly.
 - `events` has `sessionId` and `timestamp` indexes; TTL is set on `timestamp`.
 - Production no longer needs the self-hosted `mongodb_replica` service.
