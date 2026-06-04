@@ -97,6 +97,34 @@ test.describe("POST /api/events", () => {
     expect(stored[0]).toMatchObject({ type: "pageview", path: "/" });
   });
 
+  // Optional fields (target/path/metadata) should persist as null when omitted.
+  test("stores omitted optional fields as null", async ({ request }) => {
+    const res = await request.post("/api/events", {
+      data: {
+        sessionId: "session_minimal",
+        type: "pageview",
+      },
+    });
+
+    expect(res.status()).toBe(201);
+    const body = await res.json();
+    expect(body.data.event).toMatchObject({
+      sessionId: "session_minimal",
+      type: "pageview",
+      target: null,
+      path: null,
+      metadata: null,
+    });
+
+    const stored = await findEvents({ sessionId: "session_minimal" });
+    expect(stored).toHaveLength(1);
+    expect(stored[0]).toMatchObject({
+      target: null,
+      path: null,
+      metadata: null,
+    });
+  });
+
   // Guardrail: Zod validation failures must not create partial rows.
   test("rejects invalid payloads without storing an event", async ({
     request,
@@ -164,6 +192,34 @@ test.describe("GET /api/events/stats", () => {
         type: "click",
         target: "project:wheresxi",
         count: 2,
+        uniqueSessions: 2,
+      },
+    });
+  });
+
+  // With no type filter, stats aggregate across every event type on the path.
+  test("counts all event types for a path when no type is given", async ({
+    request,
+  }) => {
+    await insertEvents([
+      { sessionId: "s1", type: "click", target: "cta", path: "/" },
+      { sessionId: "s1", type: "pageview", path: "/" },
+      { sessionId: "s2", type: "pageview", path: "/" },
+      // Excluded: different path.
+      { sessionId: "s3", type: "pageview", path: "/about" },
+    ]);
+
+    const res = await request.get("/api/events/stats", {
+      params: { path: "/" },
+    });
+
+    expect(res.status()).toBe(200);
+    await expect(res.json()).resolves.toEqual({
+      data: {
+        path: "/",
+        type: null,
+        target: null,
+        count: 3,
         uniqueSessions: 2,
       },
     });
