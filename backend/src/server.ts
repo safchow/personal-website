@@ -113,8 +113,18 @@ function setupGracefulShutdown(server: Server) {
 }
 
 async function start() {
-  await connectMongo();
-  await ensureAnalyticsStorage();
+  // Connect to Mongo, but never let a DB issue crash the process: the HTTP
+  // server must still come up so /health (liveness) passes and the driver can
+  // reconnect lazily on the first query.
+  try {
+    await connectMongo();
+    await ensureAnalyticsStorage();
+  } catch (error) {
+    logger.error(
+      { err: error },
+      "Initial MongoDB connection failed; starting server anyway",
+    );
+  }
 
   const server = app.listen(PORT, "0.0.0.0", () => {
     logger.info(`Server running on port ${PORT}`);
