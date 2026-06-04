@@ -4,7 +4,7 @@
  * Coverage:
  * - POST /api/events: valid click payloads return 201 and persist to Mongo
  * - POST /api/events: invalid payloads return 400 and write nothing
- * - GET /api/events/clicks: aggregates stored clicks by path + target
+ * - GET /api/events/stats: aggregates events by path + type + target
  *
  * Each test hits the real Express app (see playwright.config.ts) and asserts
  * persistence through the mongodb driver, with the events collection wiped
@@ -97,9 +97,11 @@ test.describe("POST /api/events", () => {
   });
 });
 
-test.describe("GET /api/events/clicks", () => {
+test.describe("GET /api/events/stats", () => {
   // Read path used by dashboards; seeds data directly to isolate counting logic.
-  test("counts stored clicks for a path and target", async ({ request }) => {
+  test("counts events for a path filtered by type and target", async ({
+    request,
+  }) => {
     await insertEvents([
       {
         sessionId: "session_a",
@@ -121,9 +123,10 @@ test.describe("GET /api/events/clicks", () => {
       },
     ]);
 
-    const res = await request.get("/api/events/clicks", {
+    const res = await request.get("/api/events/stats", {
       params: {
         path: "/",
+        type: "click",
         target: "project:wheresxi",
       },
     });
@@ -132,8 +135,10 @@ test.describe("GET /api/events/clicks", () => {
     await expect(res.json()).resolves.toEqual({
       data: {
         path: "/",
+        type: "click",
         target: "project:wheresxi",
         count: 2,
+        uniqueSessions: 2,
       },
     });
   });
