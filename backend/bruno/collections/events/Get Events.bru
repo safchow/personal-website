@@ -12,7 +12,6 @@ get {
 
 params:query {
   limit: 100
-  key: {{admin_key}}
 }
 
 vars:pre-request {
@@ -29,7 +28,6 @@ docs {
   ## Query Parameters
   
   - `limit` (optional): Max events to return (default 100, max 1000)
-  - `key` (optional): Required if `ADMIN_API_KEY` is set on the server. Set `admin_key` in your Bruno environment to match.
   
   ## Response
   
@@ -55,8 +53,4 @@ docs {
     "meta": { "count": 42 }
   }
   ```
-  
-  ## Error Responses
-  
-  - `401 Unauthorized`: Invalid or missing `key` when `ADMIN_API_KEY` is configured
 }

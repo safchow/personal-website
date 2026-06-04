@@ -1,4 +1,4 @@
-import { ValidationError, logger } from "@website/core";
+import { AppError, ValidationError, logger } from "@website/core";
 import { NextFunction, Request, Response } from "express";
 import { ZodError } from "zod";
 
@@ -6,7 +6,7 @@ export function errorHandler(
   error: unknown,
   req: Request,
   res: Response,
-  _next: NextFunction
+  _next: NextFunction,
 ): void {
   if (error instanceof ValidationError) {
     res.status(400).json({
@@ -30,8 +30,19 @@ export function errorHandler(
     return;
   }
 
+  if (error instanceof AppError) {
+    res.status(error.statusCode).json({
+      error: error.code ?? "APPLICATION_ERROR",
+      message: error.message,
+    });
+    return;
+  }
+
   if (error instanceof Error) {
-    logger.error({ err: error, request_id: req.headers["x-request-id"] }, error.message);
+    logger.error(
+      { err: error, request_id: req.headers["x-request-id"] },
+      error.message,
+    );
     res.status(500).json({
       error: "Internal server error",
       message:

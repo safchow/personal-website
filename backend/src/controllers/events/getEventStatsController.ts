@@ -5,7 +5,7 @@ import { z } from "zod";
 const getEventStatsQuerySchema = z.object({
   path: z.string().min(1).max(512),
   type: z.enum(["click", "pageview"]).optional(),
-  target: z.string().min(1).optional(),
+  target: z.string().min(1).max(256).optional(),
 });
 
 const aggregationCountSchema = z.object({ count: z.number() });

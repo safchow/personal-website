@@ -20,7 +20,6 @@ bruno/
    ```bash
    cp bruno/environments/local.bru.example bruno/environments/local.bru
    ```
-   Edit `local.bru` and add your `admin_key` if you use `ADMIN_API_KEY` on the server.
 3. Open Bruno and select "Open Collection"
 4. Navigate to the `backend/bruno` folder
 5. Select your environment from the dropdown (top-right in Bruno UI)

@@ -6,10 +6,6 @@ const HOST = "localhost";
 export const TEST_DB_URL =
   "mongodb://localhost:27017/website_test?directConnection=true";
 
-// Admin key the test server boots with, so the admin-gated GET /api/events
-// route can be exercised end-to-end.
-export const TEST_ADMIN_KEY = "test-admin-key";
-
 export default defineConfig({
   testDir: "./tests/e2e",
   fullyParallel: false,
@@ -35,7 +31,6 @@ export default defineConfig({
       `HOST=${HOST}`,
       "LOG_LEVEL=warn",
       `DATABASE_URL=${TEST_DB_URL}`,
-      `ADMIN_API_KEY=${TEST_ADMIN_KEY}`,
       "CLIENT_URL=http://localhost:5173",
       "tsx src/server.ts",
     ].join(" "),

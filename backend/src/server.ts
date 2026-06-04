@@ -38,11 +38,11 @@ app.use(
     },
     methods: ["GET", "POST", "PUT", "DELETE", "PATCH", "OPTIONS"],
     allowedHeaders: ["Content-Type", "Authorization"],
-  })
+  }),
 );
 app.use(requestIdMiddleware);
 app.use(requestLogger);
-app.use(json());
+app.use(json({ limit: "8kb" }));
 
 app.get("/health", (req, res) => {
   res.status(200).json({
