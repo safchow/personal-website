@@ -4,6 +4,7 @@ import {
 } from "@/controllers/events/createEventController.js";
 import { getEventStatsController } from "@/controllers/events/getEventStatsController.js";
 import { listEventsController } from "@/controllers/events/listEventsController.js";
+import { requireAdminPassword } from "@/middleware/adminPassword.js";
 import { requireAnalyticsOrigin } from "@/middleware/analyticsOrigin.js";
 import {
   analyticsReadRateLimiter,
@@ -14,8 +15,18 @@ import { Router } from "express";
 
 const router: ReturnType<typeof Router> = Router();
 
-router.get("/", analyticsReadRateLimiter, listEventsController);
-router.get("/stats", analyticsReadRateLimiter, getEventStatsController);
+router.get(
+  "/",
+  analyticsReadRateLimiter,
+  requireAdminPassword,
+  listEventsController,
+);
+router.get(
+  "/stats",
+  analyticsReadRateLimiter,
+  requireAdminPassword,
+  getEventStatsController,
+);
 router.post(
   "/",
   analyticsWriteRateLimiter,
