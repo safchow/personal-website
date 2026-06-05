@@ -21,6 +21,8 @@ const config = {
   nodeEnv: getEnv("NODE_ENV", "development"),
   clientUrl: getEnv("CLIENT_URL", "http://localhost:5173"),
   databaseUrl: getEnv("DATABASE_URL"),
+  // SHA-256 hex of the admin password gating the analytics read endpoints.
+  adminPasswordHash: getEnv("ANALYTICS_ADMIN_PASSWORD_HASH"),
   analyticsRetentionDays: getIntEnv("ANALYTICS_RETENTION_DAYS", 730),
   analyticsWriteLimitPerMinute: getIntEnv(
     "ANALYTICS_WRITE_LIMIT_PER_MINUTE",

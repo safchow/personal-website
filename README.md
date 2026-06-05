@@ -69,9 +69,15 @@ See [docs/atlas-migration-runbook.md](docs/atlas-migration-runbook.md) for the
 full Atlas + Railway provisioning steps.
 
 **Endpoints:**
-- `POST /api/events` – Track events (body: `{ sessionId, type: "click"|"pageview", target?, path? }`)
-- `GET /api/events/stats?path=&type=&target=` – Aggregate event count + unique sessions (filter by `type` and/or `target`)
+- `POST /api/events` – Track events (body: `{ sessionId, type: "click"|"pageview", target?, path? }`). Public beacon, protected by per-IP rate limiting + input validation.
+- `GET /api/events` – List recent events (admin-only)
+- `GET /api/events/stats?path=&type=&target=` – Aggregate event count + unique sessions (admin-only; filter by `type` and/or `target`)
 - `GET /api/healthcheck` – Health check
+
+**Admin auth:** the read endpoints (`GET /api/events`, `GET /api/events/stats`)
+require an admin password. Store only its SHA-256 hex in
+`ANALYTICS_ADMIN_PASSWORD_HASH` (`printf '%s' 'your-password' | shasum -a 256`),
+and send the plaintext via the `x-admin-password` header (or `?password=`).
 
 **Data retention:** raw analytics events expire automatically via a MongoDB TTL
 index on `events.timestamp`, configured with `ANALYTICS_RETENTION_DAYS`
@@ -82,6 +88,7 @@ index on `events.timestamp`, configured with `ANALYTICS_RETENTION_DAYS`
 - Set `DATABASE_URL` to your MongoDB Atlas SRV connection string
 - Set `CLIENT_URL` to your production frontend URL
 - Optionally set `ANALYTICS_RETENTION_DAYS` (defaults to 730)
+- Set `ANALYTICS_ADMIN_PASSWORD_HASH` (SHA-256 hex) to protect the analytics read endpoints
 
 ## Testing
 
